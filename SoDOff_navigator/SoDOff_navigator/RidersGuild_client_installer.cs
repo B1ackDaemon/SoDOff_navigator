@@ -119,58 +119,72 @@ namespace SoDOff_navigator
                 Main.main.WriteLog = "[Riders Guild installer] downloading zip archive from Riders Guild server..." + "\n";
                 WebClient Client = new WebClient();
                 Client.DownloadFile("https://ridersguild.org/ridersguild_SoD_3.31.zip", textBox_path.Text + archive_name);
+
+                Main.main.WriteLog = "[Riders Guild installer] checking zip archive checksum..." + "\n";
+                archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
             }
 
-
-            //read zip contents
-            Main.main.WriteLog = "[Riders Guild installer] reading zip archive..." + "\n";
-            byte[] zip = ReadFile(textBox_path.Text + archive_name);
-            MemoryStream memzip = new MemoryStream();
-            memzip.Write(zip, 0, zip.Length);
-            ZipArchive archive = new ZipArchive(memzip);
-
-            //extract it in current directory
-            Main.main.WriteLog = "[Riders Guild installer] extracting zip archive..." + "\n";
-            foreach (ZipArchiveEntry entry in archive.Entries)
+            if (archive_md5 != original_md5)
             {
-                string dir = "";
-                Stream unzippedEntryStream = entry.Open();
-                string path = textBox_path.Text + @"\" + entry.FullName.Replace(@"/", @"\");
-                if (entry.Name.Contains(".") == true || entry.Length > 0)
-                {
-                    dir = path.Replace(entry.Name, "");
-                }
-                else if (entry.Name.Contains(".") == false)
-                {
-                    dir = path;
-                }
-                if (Directory.Exists(dir) == false)
-                {
-                    Directory.CreateDirectory(dir);
-                }
+                label_title.Text = "Installation failed.";
+                label_title.Location = new Point(64, 110);
+                btn_close.Text = "Finish";
+                Main.main.WriteLog = "[Riders Guild installer] failed to verify archive integrity." + "\n";
 
-                if (entry.Name.Contains(".") == true || entry.Length > 0)
+                MessageBox.Show("Failed to verify archive integrity!\nCheck your internet connection.", "Riders Guild Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (archive_md5 == original_md5)
+            {
+                //read zip contents
+                Main.main.WriteLog = "[Riders Guild installer] reading zip archive..." + "\n";
+                byte[] zip = ReadFile(textBox_path.Text + archive_name);
+                MemoryStream memzip = new MemoryStream();
+                memzip.Write(zip, 0, zip.Length);
+                ZipArchive archive = new ZipArchive(memzip);
+
+                //extract it in current directory
+                Main.main.WriteLog = "[Riders Guild installer] extracting zip archive..." + "\n";
+                foreach (ZipArchiveEntry entry in archive.Entries)
                 {
-                    using (Stream file = File.Create(path))
+                    string dir = "";
+                    Stream unzippedEntryStream = entry.Open();
+                    string path = textBox_path.Text + @"\" + entry.FullName.Replace(@"/", @"\");
+                    if (entry.Name.Contains(".") == true || entry.Length > 0)
                     {
-                        CopyStream(unzippedEntryStream, file);
+                        dir = path.Replace(entry.Name, "");
+                    }
+                    else if (entry.Name.Contains(".") == false)
+                    {
+                        dir = path;
+                    }
+                    if (Directory.Exists(dir) == false)
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+
+                    if (entry.Name.Contains(".") == true || entry.Length > 0)
+                    {
+                        using (Stream file = File.Create(path))
+                        {
+                            CopyStream(unzippedEntryStream, file);
+                        }
                     }
                 }
-            }
-            Main.main.WriteLog = "[Riders Guild installer] opening registry key..." + "\n";
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator", true)) // Must dispose key or use "using" keyword
-            {
-                if (key != null)  // Must check for null key
+                Main.main.WriteLog = "[Riders Guild installer] opening registry key..." + "\n";
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator", true)) // Must dispose key or use "using" keyword
                 {
-                    key.SetValue("RidersGuild_online", textBox_path.Text + @"\ridersguild_SoD_3.31");
-                    Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (online)" + "\n";
+                    if (key != null)  // Must check for null key
+                    {
+                        key.SetValue("RidersGuild_online", textBox_path.Text + @"\ridersguild_SoD_3.31");
+                        Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (online)" + "\n";
+                    }
                 }
-            }
 
-            label_title.Text = "Installation finished.";
-            label_title.Location = new Point(64, 110);
-            btn_close.Text = "Finish";
-            Main.main.WriteLog = "[Riders Guild installer] finished install process." + "\n";
+                label_title.Text = "Installation finished.";
+                label_title.Location = new Point(64, 110);
+                btn_close.Text = "Finish";
+                Main.main.WriteLog = "[Riders Guild installer] finished install process." + "\n";
+            }
         }
 
         public void LocatePreinstalled()

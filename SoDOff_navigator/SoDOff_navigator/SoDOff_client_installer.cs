@@ -167,6 +167,9 @@ namespace SoDOff_navigator
                     WebClient Client = new WebClient();
                     Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_1.6");
                     Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_1.6.zip", textBox_path.Text + archive_name);
+
+                    Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
                 }
             }
             else if (version == "1.13")
@@ -184,6 +187,9 @@ namespace SoDOff_navigator
                     WebClient Client = new WebClient();
                     Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_1.13");
                     Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_1.13.zip", textBox_path.Text + archive_name);
+
+                    Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
                 }
             }
             else if (version == "2.9")
@@ -201,6 +207,9 @@ namespace SoDOff_navigator
                     WebClient Client = new WebClient();
                     Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_2.9");
                     Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_2.9.zip", textBox_path.Text + archive_name);
+
+                    Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
                 }
             }
             else if (version == "3.12")
@@ -218,6 +227,9 @@ namespace SoDOff_navigator
                     WebClient Client = new WebClient();
                     Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_3.12");
                     Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_3.12.zip", textBox_path.Text + archive_name);
+
+                    Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
                 }
             }
             else if (version == "3.31")
@@ -235,81 +247,96 @@ namespace SoDOff_navigator
                     WebClient Client = new WebClient();
                     Client.Headers.Add("Referer", "https://sodoff.spirtix.com/windows");
                     Client.DownloadFile("https://media.sodoff.spirtix.com/clients/sod_windows.zip", textBox_path.Text + archive_name);
+
+                    Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
                 }
             }
-            
-            //read zip contents
-            Main.main.WriteLog = "[SoDOff installer] reading zip archive..." + "\n";
-            byte[] zip = ReadFile(textBox_path.Text + archive_name);
-            MemoryStream memzip = new MemoryStream();
-            memzip.Write(zip, 0, zip.Length);
-            ZipArchive archive = new ZipArchive(memzip);
 
-            //extract it in current directory
-            Main.main.WriteLog = "[SoDOff installer] extracting zip archive..." + "\n";
-            foreach (ZipArchiveEntry entry in archive.Entries)
+            if (archive_md5 != original_md5)
             {
-                string dir = "";
-                Stream unzippedEntryStream = entry.Open();
-                string path = textBox_path.Text + @"\" + entry.FullName.Replace(@"/", @"\");
-                if (entry.Name.Contains(".") == true || entry.Length > 0)
-                {
-                    dir = path.Replace(entry.Name, "");
-                }
-                else if (entry.Name.Contains(".") == false)
-                {
-                    dir = path;
-                }
-                if (Directory.Exists(dir) == false)
-                {
-                    Directory.CreateDirectory(dir);
-                }
+                label_title.Text = "Installation failed.";
+                label_title.Location = new Point(64, 130);
+                btn_close.Text = "Finish";
+                Main.main.WriteLog = "[SoDOff installer] failed to verify archive integrity." + "\n";
 
-                if (entry.Name.Contains(".") == true || entry.Length > 0)
-                {
-                    using (Stream file = File.Create(path))
-                    {
-                        CopyStream(unzippedEntryStream, file);
-                    }
-                }
+                MessageBox.Show("Failed to verify archive integrity!\nCheck your internet connection.", "SoDOff Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            Main.main.WriteLog = "[SoDOff installer] opening registry key..." + "\n";
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator", true)) // Must dispose key or use "using" keyword
+            else if (archive_md5 == original_md5)
             {
-                if (key != null)  // Must check for null key
+                //read zip contents
+                Main.main.WriteLog = "[SoDOff installer] reading zip archive..." + "\n";
+                byte[] zip = ReadFile(textBox_path.Text + archive_name);
+                MemoryStream memzip = new MemoryStream();
+                memzip.Write(zip, 0, zip.Length);
+                ZipArchive archive = new ZipArchive(memzip);
+
+                //extract it in current directory
+                Main.main.WriteLog = "[SoDOff installer] extracting zip archive..." + "\n";
+                foreach (ZipArchiveEntry entry in archive.Entries)
                 {
-                    if (version == "1.6")
+                    string dir = "";
+                    Stream unzippedEntryStream = entry.Open();
+                    string path = textBox_path.Text + @"\" + entry.FullName.Replace(@"/", @"\");
+                    if (entry.Name.Contains(".") == true || entry.Length > 0)
                     {
-                        key.SetValue("SoDOff_16", textBox_path.Text + @"\SoD_1.6");
-                        Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        dir = path.Replace(entry.Name, "");
                     }
-                    else if (version == "1.13")
+                    else if (entry.Name.Contains(".") == false)
                     {
-                        key.SetValue("SoDOff_113", textBox_path.Text + @"\SoD_1.13");
-                        Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        dir = path;
                     }
-                    else if (version == "2.9")
+                    if (Directory.Exists(dir) == false)
                     {
-                        key.SetValue("SoDOff_29", textBox_path.Text + @"\SoD_2.9");
-                        Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        Directory.CreateDirectory(dir);
                     }
-                    else if (version == "3.31")
+
+                    if (entry.Name.Contains(".") == true || entry.Length > 0)
                     {
-                        key.SetValue("SoDOff_331", textBox_path.Text + @"\School of Dragons");
-                        Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
-                    }
-                    else if (version == "3.12")
-                    {
-                        key.SetValue("SoDOff_312", textBox_path.Text + @"\SoD_3.12");
-                        Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        using (Stream file = File.Create(path))
+                        {
+                            CopyStream(unzippedEntryStream, file);
+                        }
                     }
                 }
-            }
+                Main.main.WriteLog = "[SoDOff installer] opening registry key..." + "\n";
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator", true)) // Must dispose key or use "using" keyword
+                {
+                    if (key != null)  // Must check for null key
+                    {
+                        if (version == "1.6")
+                        {
+                            key.SetValue("SoDOff_16", textBox_path.Text + @"\SoD_1.6");
+                            Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        }
+                        else if (version == "1.13")
+                        {
+                            key.SetValue("SoDOff_113", textBox_path.Text + @"\SoD_1.13");
+                            Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        }
+                        else if (version == "2.9")
+                        {
+                            key.SetValue("SoDOff_29", textBox_path.Text + @"\SoD_2.9");
+                            Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        }
+                        else if (version == "3.31")
+                        {
+                            key.SetValue("SoDOff_331", textBox_path.Text + @"\School of Dragons");
+                            Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        }
+                        else if (version == "3.12")
+                        {
+                            key.SetValue("SoDOff_312", textBox_path.Text + @"\SoD_3.12");
+                            Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: " + version + "\n";
+                        }
+                    }
+                }
 
-            label_title.Text = "Installation finished.";
-            label_title.Location = new Point(64, 130);
-            btn_close.Text = "Finish";
-            Main.main.WriteLog = "[SoDOff installer] finished install process." + "\n";
+                label_title.Text = "Installation finished.";
+                label_title.Location = new Point(64, 130);
+                btn_close.Text = "Finish";
+                Main.main.WriteLog = "[SoDOff installer] finished install process." + "\n";
+            }
         }
 
         public void LocatePreinstalled()

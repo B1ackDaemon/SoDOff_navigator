@@ -23,6 +23,7 @@ namespace SoDOff_navigator
 
             richTextBox_log.Text += "[Main] Program started." + "\n";
 
+            checkEnvironment();
             checkRegistry();
         }
 
@@ -30,6 +31,18 @@ namespace SoDOff_navigator
         internal string WriteLog
         {
             set { richTextBox_log.Text += value; }
+        }
+
+        public void checkEnvironment()
+        {
+            if (Directory.GetCurrentDirectory().Contains(@"\windows\system32") == true 
+                || Directory.GetCurrentDirectory().Contains(@"\windows\System32") == true
+                || Directory.GetCurrentDirectory().Contains(@"\Windows\system32") == true
+                || Directory.GetCurrentDirectory().Contains(@"\Windows\System32") == true)
+            {
+                MessageBox.Show("You're not supposed to launch this program from inside zip archive!", "SoDOff Navigator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
 
         public void checkRegistry()
