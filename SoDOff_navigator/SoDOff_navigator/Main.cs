@@ -329,6 +329,12 @@ namespace SoDOff_navigator
             About about_dialog = new About();
             about_dialog.Show();
         }
+
+        private void btn_mod_manager_Click(object sender, EventArgs e)
+        {
+            Mod_Manager mods_dialog = new Mod_Manager();
+            mods_dialog.Show();
+        }
     }
 
     class HashingCompute

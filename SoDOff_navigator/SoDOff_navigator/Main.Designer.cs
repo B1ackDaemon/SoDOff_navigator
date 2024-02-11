@@ -44,6 +44,7 @@
             this.btn_start_server_riders_guild = new System.Windows.Forms.Button();
             this.btn_install_riders_guild_server = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_mod_manager = new System.Windows.Forms.Button();
             this.label_about = new System.Windows.Forms.Label();
             this.groupBox_play_online.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -195,6 +196,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btn_mod_manager);
             this.groupBox2.Controls.Add(this.btn_discord_sodoff);
             this.groupBox2.Controls.Add(this.btn_discord_riders_guild);
             this.groupBox2.Location = new System.Drawing.Point(24, 240);
@@ -203,6 +205,16 @@
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Social";
+            // 
+            // btn_mod_manager
+            // 
+            this.btn_mod_manager.Location = new System.Drawing.Point(171, 35);
+            this.btn_mod_manager.Name = "btn_mod_manager";
+            this.btn_mod_manager.Size = new System.Drawing.Size(75, 35);
+            this.btn_mod_manager.TabIndex = 9;
+            this.btn_mod_manager.Text = "Mod Manager";
+            this.btn_mod_manager.UseVisualStyleBackColor = true;
+            this.btn_mod_manager.Click += new System.EventHandler(this.btn_mod_manager_Click);
             // 
             // label_about
             // 
@@ -221,7 +233,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 383);
+            this.ClientSize = new System.Drawing.Size(474, 382);
             this.Controls.Add(this.label_about);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -260,6 +272,7 @@
         private System.Windows.Forms.Button btn_install_riders_guild_server;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label_about;
+        private System.Windows.Forms.Button btn_mod_manager;
     }
 }
 
