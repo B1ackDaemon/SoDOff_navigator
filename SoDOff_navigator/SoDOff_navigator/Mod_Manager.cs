@@ -18,6 +18,7 @@ namespace SoDOff_navigator
     {
         Mods[] mod;
         int[] mod_index;
+        string[] outdated;
         public Mod_Manager()
         {
             InitializeComponent();
@@ -31,9 +32,17 @@ namespace SoDOff_navigator
                 WebClient Client = new WebClient();
                 Client.DownloadFile("https://raw.githubusercontent.com/B1ackDaemon/SoDOff_navigator_modslist/main/modslist.txt", "modslist.txt");
             }
+            if (File.Exists("outdated.txt") == false)
+            {
+                Main.main.WriteLog = "[Mod Manager] downloading outdated list from remote server..." + "\n";
+
+                WebClient Client = new WebClient();
+                Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/outdated.txt", "outdated.txt");
+            }
 
             Main.main.WriteLog = "[Mod Manager] reading mods list..." + "\n";
             mod = new Mods().createModsList(System.IO.File.ReadAllLines("modslist.txt"));
+            outdated = System.IO.File.ReadAllLines("outdated.txt");
 
             comboBox_category.Items.Add("Any");
             comboBox_category.Items.Add("Cosmetic");
@@ -387,6 +396,25 @@ namespace SoDOff_navigator
                     {
                         Main.main.WriteLog = "[Mod Manager] mod file: " + mod[index].file_name + " already installed, skipping..." + "\n";
                     }
+                    else if (file_md5 != mod[index].checksum)
+                    {
+                        for (int i = 0; i < outdated.Length; i++)
+                        {
+                            if (outdated[i].Contains(file_md5) == true)
+                            {
+                                Main.main.WriteLog = "[Mod Manager] mod file: " + mod[index].file_name + " outdated, updating to actual version..." + "\n";
+                                File.Copy("Mods" + @"\" + mod[index].file_name, game_path + @"\" + mod[index].install_path + @"\" + mod[index].file_name, true);
+                            }
+                        }
+                    }
+                }
+                if (mod[index].name == "Simple Resource Replacer")
+                {
+                    if (File.Exists(game_path + @"\" + mod[index].install_path + @"\SimpleTextureReplacer.dll") == true)
+                    {
+                        Main.main.WriteLog = "[Mod Manager] legacy mod (Simple Texture Replacer) detected, removing..." + "\n";
+                        File.Delete(game_path + @"\" + mod[index].install_path + @"\SimpleTextureReplacer.dll");
+                    }
                 }
             }
             else if (mod[index].file_name.Contains(".zip") == true && mod[index].category != "Cosmetic")
@@ -430,6 +458,26 @@ namespace SoDOff_navigator
                             if (file_md5 == mod[i].checksum)
                             {
                                 Main.main.WriteLog = "[Mod Manager] dependency file: " + mod[i].file_name + " already installed, skipping..." + "\n";
+                            }
+                            else if (file_md5 != mod[i].checksum)
+                            {
+                                for (int j = 0; j < outdated.Length; j++)
+                                {
+                                    if (outdated[j].Contains(file_md5) == true)
+                                    {
+                                        Main.main.WriteLog = "[Mod Manager] mod file: " + mod[i].file_name + " outdated, updating to actual version..." + "\n";
+                                        File.Copy("Mods" + @"\" + mod[i].file_name, game_dir + @"\" + mod[i].install_path + @"\" + mod[i].file_name, true);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (mod[i].name == "Simple Resource Replacer")
+                        {
+                            if (File.Exists(game_dir + @"\" + mod[i].install_path + @"\SimpleTextureReplacer.dll") == true)
+                            {
+                                Main.main.WriteLog = "[Mod Manager] legacy mod (Simple Texture Replacer) detected, removing..." + "\n";
+                                File.Delete(game_dir + @"\" + mod[i].install_path + @"\SimpleTextureReplacer.dll");
                             }
                         }
                     }
