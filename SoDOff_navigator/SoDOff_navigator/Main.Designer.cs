@@ -33,22 +33,24 @@
             this.label_log = new System.Windows.Forms.Label();
             this.btn_install_sodoff_online = new System.Windows.Forms.Button();
             this.btn_play_sodoff_online = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_title = new System.Windows.Forms.Label();
             this.btn_discord_sodoff = new System.Windows.Forms.Button();
             this.btn_play_riders_guild_online = new System.Windows.Forms.Button();
             this.btn_install_riders_guild_online = new System.Windows.Forms.Button();
             this.btn_discord_riders_guild = new System.Windows.Forms.Button();
             this.groupBox_play_online = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox_play_offline = new System.Windows.Forms.GroupBox();
             this.btn_play_riders_guild_offline = new System.Windows.Forms.Button();
             this.btn_start_server_riders_guild = new System.Windows.Forms.Button();
             this.btn_install_riders_guild_server = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox_social = new System.Windows.Forms.GroupBox();
             this.btn_mod_manager = new System.Windows.Forms.Button();
             this.label_about = new System.Windows.Forms.Label();
+            this.comboBox_language = new System.Windows.Forms.ComboBox();
+            this.label_language = new System.Windows.Forms.Label();
             this.groupBox_play_online.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBox_play_offline.SuspendLayout();
+            this.groupBox_social.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBox_log
@@ -89,15 +91,15 @@
             this.btn_play_sodoff_online.UseVisualStyleBackColor = true;
             this.btn_play_sodoff_online.Click += new System.EventHandler(this.btn_play_sodoff_online_Click);
             // 
-            // label1
+            // label_title
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(169, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 25);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Main Menu";
+            this.label_title.AutoSize = true;
+            this.label_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_title.Location = new System.Drawing.Point(169, 15);
+            this.label_title.Name = "label_title";
+            this.label_title.Size = new System.Drawing.Size(119, 25);
+            this.label_title.TabIndex = 4;
+            this.label_title.Text = "Main Menu";
             // 
             // btn_discord_sodoff
             // 
@@ -152,17 +154,17 @@
             this.groupBox_play_online.TabStop = false;
             this.groupBox_play_online.Text = "Play online";
             // 
-            // groupBox1
+            // groupBox_play_offline
             // 
-            this.groupBox1.Controls.Add(this.btn_play_riders_guild_offline);
-            this.groupBox1.Controls.Add(this.btn_start_server_riders_guild);
-            this.groupBox1.Controls.Add(this.btn_install_riders_guild_server);
-            this.groupBox1.Location = new System.Drawing.Point(245, 66);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 145);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Play offline";
+            this.groupBox_play_offline.Controls.Add(this.btn_play_riders_guild_offline);
+            this.groupBox_play_offline.Controls.Add(this.btn_start_server_riders_guild);
+            this.groupBox_play_offline.Controls.Add(this.btn_install_riders_guild_server);
+            this.groupBox_play_offline.Location = new System.Drawing.Point(245, 66);
+            this.groupBox_play_offline.Name = "groupBox_play_offline";
+            this.groupBox_play_offline.Size = new System.Drawing.Size(200, 145);
+            this.groupBox_play_offline.TabIndex = 10;
+            this.groupBox_play_offline.TabStop = false;
+            this.groupBox_play_offline.Text = "Play offline";
             // 
             // btn_play_riders_guild_offline
             // 
@@ -194,17 +196,17 @@
             this.btn_install_riders_guild_server.UseVisualStyleBackColor = true;
             this.btn_install_riders_guild_server.Click += new System.EventHandler(this.btn_install_riders_guild_server_Click);
             // 
-            // groupBox2
+            // groupBox_social
             // 
-            this.groupBox2.Controls.Add(this.btn_mod_manager);
-            this.groupBox2.Controls.Add(this.btn_discord_sodoff);
-            this.groupBox2.Controls.Add(this.btn_discord_riders_guild);
-            this.groupBox2.Location = new System.Drawing.Point(24, 240);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(421, 100);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Social";
+            this.groupBox_social.Controls.Add(this.btn_mod_manager);
+            this.groupBox_social.Controls.Add(this.btn_discord_sodoff);
+            this.groupBox_social.Controls.Add(this.btn_discord_riders_guild);
+            this.groupBox_social.Location = new System.Drawing.Point(24, 240);
+            this.groupBox_social.Name = "groupBox_social";
+            this.groupBox_social.Size = new System.Drawing.Size(421, 100);
+            this.groupBox_social.TabIndex = 11;
+            this.groupBox_social.TabStop = false;
+            this.groupBox_social.Text = "Social";
             // 
             // btn_mod_manager
             // 
@@ -229,16 +231,37 @@
             this.label_about.Text = "SoDOff Navigator - handy installer and launcher";
             this.label_about.Click += new System.EventHandler(this.label_about_Click);
             // 
+            // comboBox_language
+            // 
+            this.comboBox_language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_language.FormattingEnabled = true;
+            this.comboBox_language.Location = new System.Drawing.Point(408, 5);
+            this.comboBox_language.Name = "comboBox_language";
+            this.comboBox_language.Size = new System.Drawing.Size(52, 21);
+            this.comboBox_language.TabIndex = 13;
+            this.comboBox_language.SelectedIndexChanged += new System.EventHandler(this.comboBox_language_SelectedIndexChanged);
+            // 
+            // label_language
+            // 
+            this.label_language.AutoSize = true;
+            this.label_language.Location = new System.Drawing.Point(344, 9);
+            this.label_language.Name = "label_language";
+            this.label_language.Size = new System.Drawing.Size(58, 13);
+            this.label_language.TabIndex = 14;
+            this.label_language.Text = "Language:";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 382);
+            this.Controls.Add(this.label_language);
+            this.Controls.Add(this.comboBox_language);
             this.Controls.Add(this.label_about);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox_social);
+            this.Controls.Add(this.groupBox_play_offline);
             this.Controls.Add(this.groupBox_play_online);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_title);
             this.Controls.Add(this.label_log);
             this.Controls.Add(this.richTextBox_log);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -247,8 +270,8 @@
             this.Name = "Main";
             this.Text = "SoDOff Navigator";
             this.groupBox_play_online.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
+            this.groupBox_play_offline.ResumeLayout(false);
+            this.groupBox_social.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,19 +283,21 @@
         private System.Windows.Forms.Label label_log;
         private System.Windows.Forms.Button btn_install_sodoff_online;
         private System.Windows.Forms.Button btn_play_sodoff_online;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_title;
         private System.Windows.Forms.Button btn_discord_sodoff;
         private System.Windows.Forms.Button btn_play_riders_guild_online;
         private System.Windows.Forms.Button btn_install_riders_guild_online;
         private System.Windows.Forms.Button btn_discord_riders_guild;
         private System.Windows.Forms.GroupBox groupBox_play_online;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox_play_offline;
         private System.Windows.Forms.Button btn_play_riders_guild_offline;
         private System.Windows.Forms.Button btn_start_server_riders_guild;
         private System.Windows.Forms.Button btn_install_riders_guild_server;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox_social;
         private System.Windows.Forms.Label label_about;
         private System.Windows.Forms.Button btn_mod_manager;
+        private System.Windows.Forms.ComboBox comboBox_language;
+        private System.Windows.Forms.Label label_language;
     }
 }
 

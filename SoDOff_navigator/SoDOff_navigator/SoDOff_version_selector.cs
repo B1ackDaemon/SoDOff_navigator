@@ -15,6 +15,7 @@ namespace SoDOff_navigator
     
     public partial class SoDOff_version_selector : Form
     {
+        Locale locale = Main.main.GetLocale();
         string path_16 = "";
         string path_113 = "";
         string path_29 = "";
@@ -25,6 +26,9 @@ namespace SoDOff_navigator
             InitializeComponent();
 
             Main.main.WriteLog = "[SoDOff version selector] window opened." + "\n";
+
+            groupBox1.Text = locale.sodoff_version_select;
+
             radioButton_16.Enabled = false;
             radioButton_113.Enabled = false;
             radioButton_29.Enabled = false;

@@ -16,6 +16,7 @@ namespace SoDOff_navigator
 {
     public partial class Mod_Manager : Form
     {
+        Locale locale = Main.main.GetLocale();
         Mods[] mod;
         int[] mod_index;
         string[] outdated;
@@ -24,6 +25,8 @@ namespace SoDOff_navigator
             InitializeComponent();
 
             Main.main.WriteLog = "[Mod Manager] window opened." + "\n";
+
+            UpdateUI();
 
             if (File.Exists("modslist.txt") == false)
             {
@@ -44,10 +47,10 @@ namespace SoDOff_navigator
             mod = new Mods().createModsList(System.IO.File.ReadAllLines("modslist.txt"));
             outdated = System.IO.File.ReadAllLines("outdated.txt");
 
-            comboBox_category.Items.Add("Any");
-            comboBox_category.Items.Add("Cosmetic");
-            comboBox_category.Items.Add("Utility");
-            comboBox_author.Items.Add("Any");
+            comboBox_category.Items.Add(locale.mod_category_any);
+            comboBox_category.Items.Add(locale.mod_category_cosmetic);
+            comboBox_category.Items.Add(locale.mod_category_utility);
+            comboBox_author.Items.Add(locale.mod_author_any);
 
             Main.main.WriteLog = "[Mod Manager] parsing installed clients from registry..." + "\n";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator");
@@ -118,12 +121,12 @@ namespace SoDOff_navigator
             mod_index = new int[mod.Length];
             for (int i = 0; i < mod.Length; i++)
             {
-                if (comboBox_author.Text == "Any" && comboBox_category.Text == "Any")
+                if (comboBox_author.Text == locale.mod_author_any && comboBox_category.Text == locale.mod_category_any)
                 {
                     listBox_mods.Items.Add(mod[i].name);
                     mod_index[i] = i;
                 }
-                else if (comboBox_author.Text != "Any" && comboBox_category.Text == "Any")
+                else if (comboBox_author.Text != locale.mod_author_any && comboBox_category.Text == locale.mod_category_any)
                 {
                     if (mod[i].author == comboBox_author.Text)
                     {
@@ -132,18 +135,38 @@ namespace SoDOff_navigator
                         items_added++;
                     }
                 }
-                else if (comboBox_author.Text == "Any" && comboBox_category.Text != "Any")
+                else if (comboBox_author.Text == locale.mod_author_any && comboBox_category.Text != locale.mod_category_any)
                 {
-                    if (mod[i].category == comboBox_category.Text)
+                    string category_tmp = "";
+                    if (comboBox_category.SelectedIndex == 1)
+                    {
+                        category_tmp = "Cosmetic";
+                    }
+                    else if (comboBox_category.SelectedIndex == 2)
+                    {
+                        category_tmp = "Utility";
+                    }
+                    //if (mod[i].category == comboBox_category.Text)
+                    if (mod[i].category == category_tmp)
                     {
                         listBox_mods.Items.Add(mod[i].name);
                         mod_index[items_added] = i;
                         items_added++;
                     }
                 }
-                else if (comboBox_author.Text != "Any" && comboBox_category.Text != "Any")
+                else if (comboBox_author.Text != locale.mod_author_any && comboBox_category.Text != locale.mod_category_any)
                 {
-                    if (mod[i].author == comboBox_author.Text && mod[i].category == comboBox_category.Text)
+                    string category_tmp = "";
+                    if (comboBox_category.SelectedIndex == 1)
+                    {
+                        category_tmp = "Cosmetic";
+                    }
+                    else if (comboBox_category.SelectedIndex == 2)
+                    {
+                        category_tmp = "Utility";
+                    }
+                    //if (mod[i].author == comboBox_author.Text && mod[i].category == comboBox_category.Text)
+                    if (mod[i].author == comboBox_author.Text && mod[i].category == category_tmp)
                     {
                         listBox_mods.Items.Add(mod[i].name);
                         mod_index[items_added] = i;
@@ -165,19 +188,21 @@ namespace SoDOff_navigator
 
         private void listBox_mods_SelectedIndexChanged(object sender, EventArgs e)
         {
-            label_mod_name.Text = "Mod name: " + mod[mod_index[listBox_mods.SelectedIndex]].name;
-            label_mod_author.Text = "Author: " + mod[mod_index[listBox_mods.SelectedIndex]].author;
-            label_direct_dl.Text = "Direct download: " + mod[mod_index[listBox_mods.SelectedIndex]].direct_download;
-            label_description.Text = "Description: " + mod[mod_index[listBox_mods.SelectedIndex]].description;
-            label_dependency.Text = "Dependency: " + mod[mod_index[listBox_mods.SelectedIndex]].dependency;
-            label_direct_dl.Text = "Direct download: " + mod[mod_index[listBox_mods.SelectedIndex]].direct_download;
+            label_mod_name.Text = locale.mod_name + mod[mod_index[listBox_mods.SelectedIndex]].name;
+            label_author.Text = locale.mod_author + mod[mod_index[listBox_mods.SelectedIndex]].author;
+            label_description.Text = locale.mod_description + mod[mod_index[listBox_mods.SelectedIndex]].description;
+            label_dependency.Text = locale.mod_dependency + mod[mod_index[listBox_mods.SelectedIndex]].dependency;
             if (mod[mod_index[listBox_mods.SelectedIndex]].direct_download == "no")
             {
-                btn_download.Text = "Download (manual)";
+                label_direct_dl.Text = locale.mod_direct_dl + locale.mod_no;
+                //btn_download.Text = "Download (manual)";
+                btn_download.Text = locale.mod_download_manual;
             }
             else if (mod[mod_index[listBox_mods.SelectedIndex]].direct_download == "yes")
             {
-                btn_download.Text = "Download (automatic)";
+                label_direct_dl.Text = locale.mod_direct_dl + locale.mod_yes;
+                //btn_download.Text = "Download (automatic)";
+                btn_download.Text = locale.mod_download_automatic;
             }
 
             Main.main.WriteLog = "[Mod Manager] selected mod: " + mod[mod_index[listBox_mods.SelectedIndex]].name + "\n";
@@ -187,13 +212,15 @@ namespace SoDOff_navigator
         {
             if (listBox_mods.SelectedIndex < 0)
             {
-                MessageBox.Show("You must select mod from list before installing.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("You must select mod from list before installing.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.mod_error_select_mod_install, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (listBox_mods.SelectedIndex >= 0)
             {
                 if (comboBox_client.Text == "")
                 {
-                    MessageBox.Show("You must choose client before installing.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("You must choose client before installing.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(locale.mod_error_select_client, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (comboBox_client.Text != "")
                 {
@@ -247,12 +274,14 @@ namespace SoDOff_navigator
                             {
                                 InstallMod(index, game_path);
 
-                                MessageBox.Show("Instalation finished.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //MessageBox.Show("Instalation finished.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(locale.mod_install_finished, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         if (File.Exists("Mods" + @"\" + mod[index].file_name) == false || file_md5 != mod[index].checksum)
                         {
-                            MessageBox.Show("This mod must be downloaded manually before installing.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //MessageBox.Show("This mod must be downloaded manually before installing.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(locale.mod_error_manual_download, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else if (mod[index].direct_download == "yes")
@@ -264,7 +293,8 @@ namespace SoDOff_navigator
                             {
                                 InstallMod(index, game_path);
 
-                                MessageBox.Show("Instalation finished.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //MessageBox.Show("Instalation finished.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(locale.mod_install_finished, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         if (File.Exists("Mods" + @"\" + mod[index].file_name) == false || file_md5 != mod[index].checksum)
@@ -277,11 +307,13 @@ namespace SoDOff_navigator
                             {
                                 InstallMod(index, game_path);
 
-                                MessageBox.Show("Instalation finished.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //MessageBox.Show("Instalation finished.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(locale.mod_install_finished, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else if (file_md5 != mod[index].checksum)
                             {
-                                MessageBox.Show("Download failed. Check your internet connection.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //MessageBox.Show("Download failed. Check your internet connection.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(locale.mod_download_failed, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
@@ -293,7 +325,8 @@ namespace SoDOff_navigator
         {
             if (listBox_mods.SelectedIndex < 0)
             {
-                MessageBox.Show("You must select mod from list before downloading.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("You must select mod from list before downloading.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.mod_error_select_mod_download, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (listBox_mods.SelectedIndex >= 0)
             {
@@ -312,7 +345,8 @@ namespace SoDOff_navigator
                         file_md5 = HashingCompute.GetMD5HashFromFile("Mods" + @"\" + mod[index].file_name);
                         if (file_md5 == mod[index].checksum)
                         {
-                            MessageBox.Show("Mod file already downloaded.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show("Mod file already downloaded.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(locale.mod_already_downloaded, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     if (File.Exists("Mods" + @"\" + mod[index].file_name) == false || file_md5 != mod[index].checksum)
@@ -327,7 +361,8 @@ namespace SoDOff_navigator
                         file_md5 = HashingCompute.GetMD5HashFromFile("Mods" + @"\" + mod[index].file_name);
                         if (file_md5 == mod[index].checksum)
                         {
-                            MessageBox.Show("Mod file already downloaded.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show("Mod file already downloaded.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(locale.mod_already_downloaded, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     if (File.Exists("Mods" + @"\" + mod[index].file_name) == false || file_md5 != mod[index].checksum)
@@ -338,11 +373,13 @@ namespace SoDOff_navigator
                         file_md5 = HashingCompute.GetMD5HashFromFile("Mods" + @"\" + mod[index].file_name);
                         if (file_md5 == mod[index].checksum)
                         {
-                            MessageBox.Show("Download complete.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show("Download complete.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(locale.mod_download_complete, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (file_md5 != mod[index].checksum)
                         {
-                            MessageBox.Show("Download failed. Check your internet connection.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //MessageBox.Show("Download failed. Check your internet connection.", "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(locale.mod_download_failed, "Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -531,6 +568,21 @@ namespace SoDOff_navigator
                     }
                 }
             }
+        }
+
+        public void UpdateUI()
+        {
+            label_mod_author.Text = locale.mods_author;
+            label_category.Text = locale.mods_category;
+            label_install_path.Text = locale.mod_choose_client;
+            label_mods_list.Text = locale.mod_list;
+            label_mod_name.Text = locale.mod_name;
+            label_author.Text = locale.mod_author;
+            label_description.Text = locale.mod_description;
+            label_dependency.Text = locale.mod_dependency;
+            label_direct_dl.Text = locale.mod_direct_dl;
+            btn_download.Text = locale.mod_download;
+            btn_install.Text = locale.mod_install;
         }
 
         byte[] ReadFile(string path)

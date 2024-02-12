@@ -18,12 +18,15 @@ namespace SoDOff_navigator
 {
     public partial class RidersGuild_client_installer : Form
     {
+        Locale locale = Main.main.GetLocale();
         public RidersGuild_client_installer()
         {
             InitializeComponent();
 
             //textBox_path.Text = @"D:\RidersGuild";
             Main.main.WriteLog = "[Riders Guild installer] window opened." + "\n";
+
+            UpdateUI();
         }
 
         private void btn_install_path_Click(object sender, EventArgs e)
@@ -33,7 +36,8 @@ namespace SoDOff_navigator
 
             if (dialog.SelectedPath == "")
             {
-                MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_install_path, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (dialog.SelectedPath != "")
             {
@@ -44,11 +48,14 @@ namespace SoDOff_navigator
 
         private void btn_install_Click(object sender, EventArgs e)
         {
-            if (textBox_path.Text.Contains("Select...") == true)
+            //if (textBox_path.Text.Contains("Select...") == true)
+            if (textBox_path.Text.Contains(locale.installer_path) == true)
             {
-                MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_install_path, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (textBox_path.Text.Contains("Select...") == false)
+            //else if (textBox_path.Text.Contains("Select...") == false)
+            else if (textBox_path.Text.Contains(locale.installer_path) == false)
             {
                 Main.main.WriteLog = "[Riders Guild installer] creating install thread." + "\n";
                 Thread install_thread;
@@ -65,7 +72,8 @@ namespace SoDOff_navigator
 
             if (dialog.SelectedPath == "")
             {
-                MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_install_path, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (dialog.SelectedPath != "")
             {
@@ -85,6 +93,32 @@ namespace SoDOff_navigator
             this.Close();
         }
 
+        public Point CenterPosition()
+        {
+            int x = (this.Width / 2) - (label_title.Width / 2) - 6;
+            int y = (this.Height / 2) - (label_title.Height * 3);
+            return new Point(x, y);
+        }
+        public Point CenterPositionX()
+        {
+            int x = (this.Width / 2) - (label_title.Width / 2) - 6;
+            int y = label_title.Location.Y;
+            return new Point(x, y);
+        }
+
+        public void UpdateUI()
+        {
+            label_title.Text = locale.rg_online_installer_title;
+            groupBox_install_path.Text = locale.installer_install_path;
+            textBox_path.Text = locale.installer_path;
+            btn_install_path.Text = locale.installer_select_path;
+            btn_install.Text = locale.installer_install;
+            label_preinstalled.Text = locale.installer_preinstalled;
+            btn_locate.Text = locale.installer_locate;
+            btn_close.Text = locale.installer_close;
+            label_title.Location = CenterPositionX();
+        }
+
         public void DownloadAndInstall()
         {
             Main.main.WriteLog = "[Riders Guild installer] initializing install process." + "\n";
@@ -92,13 +126,15 @@ namespace SoDOff_navigator
             string archive_md5 = "";
             string original_md5 = "";
 
-            label_title.Text = "Installing, please wait...";
-            label_title.Location = new Point(58, 110);
+            //label_title.Text = "Installing, please wait...";
+            label_title.Text = locale.install_in_progress;
+            label_title.Location = CenterPosition();
             groupBox_install_path.Visible = false;
             btn_install.Visible = false;
             btn_locate.Visible = false;
             label_preinstalled.Visible = false;
-            btn_close.Text = "Cancel";
+            //btn_close.Text = "Cancel";
+            btn_close.Text = locale.installer_cancel;
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(100, 233);
 
@@ -126,12 +162,15 @@ namespace SoDOff_navigator
 
             if (archive_md5 != original_md5)
             {
-                label_title.Text = "Installation failed.";
-                label_title.Location = new Point(64, 110);
-                btn_close.Text = "Finish";
+                //label_title.Text = "Installation failed.";
+                label_title.Text = locale.error_install_failed;
+                label_title.Location = CenterPosition();
+                //btn_close.Text = "Finish";
+                btn_close.Text = locale.installer_finish;
                 Main.main.WriteLog = "[Riders Guild installer] failed to verify archive integrity." + "\n";
 
-                MessageBox.Show("Failed to verify archive integrity!\nCheck your internet connection.", "Riders Guild Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Failed to verify archive integrity!\nCheck your internet connection.", "Riders Guild Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_archive_integrity, "Riders Guild Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (archive_md5 == original_md5)
             {
@@ -180,9 +219,11 @@ namespace SoDOff_navigator
                     }
                 }
 
-                label_title.Text = "Installation finished.";
-                label_title.Location = new Point(64, 110);
-                btn_close.Text = "Finish";
+                //label_title.Text = "Installation finished.";
+                label_title.Text = locale.install_complete;
+                label_title.Location = CenterPosition();
+                //btn_close.Text = "Finish";
+                btn_close.Text = locale.installer_finish;
                 Main.main.WriteLog = "[Riders Guild installer] finished install process." + "\n";
             }
         }
@@ -190,13 +231,15 @@ namespace SoDOff_navigator
         public void LocatePreinstalled()
         {
             Main.main.WriteLog = "[Riders Guild installer] initializing locate process." + "\n";
-            label_title.Text = "Scanning, please wait...";
-            label_title.Location = new Point(56, 110);
+            //label_title.Text = "Scanning, please wait...";
+            label_title.Text = locale.locate_in_progress;
+            label_title.Location = CenterPosition();
             groupBox_install_path.Visible = false;
             btn_install.Visible = false;
             btn_locate.Visible = false;
             label_preinstalled.Visible = false;
-            btn_close.Text = "Cancel";
+            //btn_close.Text = "Cancel";
+            btn_close.Text = locale.installer_cancel;
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(100, 233);
 
@@ -223,9 +266,11 @@ namespace SoDOff_navigator
                     }
                 }
             }
-            label_title.Text = "Scanning finished.";
-            label_title.Location = new Point(68, 110);
-            btn_close.Text = "Finish";
+            //label_title.Text = "Scanning finished.";
+            label_title.Text = locale.locate_complete;
+            label_title.Location = CenterPosition();
+            //btn_close.Text = "Finish";
+            btn_close.Text = locale.installer_finish;
             Main.main.WriteLog = "[Riders Guild installer] finished locate process." + "\n";
         }
 

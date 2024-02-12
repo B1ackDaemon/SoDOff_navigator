@@ -20,12 +20,15 @@ namespace SoDOff_navigator
     
     public partial class SoDOff_client_installer : Form
     {
+        Locale locale = Main.main.GetLocale();
         public SoDOff_client_installer()
         {
             InitializeComponent();
 
             //textBox_path.Text = @"D:\SoDOff";
             Main.main.WriteLog = "[SoDOff installer] window opened." + "\n";
+
+            UpdateUI();
         }
 
         private void btn_install_path_Click(object sender, EventArgs e)
@@ -35,7 +38,8 @@ namespace SoDOff_navigator
 
             if (dialog.SelectedPath == "")
             {
-                MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_install_path, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (dialog.SelectedPath != "")
             {
@@ -46,11 +50,14 @@ namespace SoDOff_navigator
 
         private void btn_install_Click(object sender, EventArgs e)
         {
-            if (textBox_path.Text.Contains("Select...") == true)
+            //if (textBox_path.Text.Contains("Select...") == true)
+            if (textBox_path.Text.Contains(locale.installer_path) == true)
             {
-                MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_install_path, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (textBox_path.Text.Contains("Select...") == false)
+            //else if (textBox_path.Text.Contains("Select...") == false)
+            else if (textBox_path.Text.Contains(locale.installer_path) == false)
             {
                 if (radioButton_version_default.Checked == true)
                 {
@@ -62,7 +69,8 @@ namespace SoDOff_navigator
                 }
                 else if (radioButton_version_select.Checked == true && comboBox_version.Text == "")
                 {
-                    MessageBox.Show("No client version selected!", "Select game version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("No client version selected!", "Select game version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(locale.error_client_version, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (radioButton_version_select.Checked == true && comboBox_version.Text != "")
                 {
@@ -82,7 +90,8 @@ namespace SoDOff_navigator
 
             if (dialog.SelectedPath == "")
             {
-                MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("No folder was selected!", "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_install_path, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (dialog.SelectedPath != "")
             {
@@ -117,6 +126,28 @@ namespace SoDOff_navigator
             comboBox_version.Visible = false;
         }
 
+        public Point CenterPosition()
+        {
+            int x = (this.Width / 2) - (label_title.Width / 2) - 6;
+            int y = (this.Height / 2) - (label_title.Height * 3);
+            return new Point(x, y);
+        }
+
+        void UpdateUI()
+        {
+            label_title.Text = locale.sodoff_installer_title;
+            groupBox_install_path.Text = locale.installer_install_path;
+            textBox_path.Text = locale.installer_path;
+            btn_install_path.Text = locale.installer_select_path;
+            groupBox_client_ver.Text = locale.sodoff_installer_client_ver;
+            radioButton_version_default.Text = locale.sodoff_installer_version_default;
+            radioButton_version_select.Text = locale.sodoff_installer_version_select;
+            btn_install.Text = locale.installer_install;
+            label_preinstalled.Text = locale.installer_preinstalled;
+            btn_locate.Text = locale.installer_locate;
+            btn_close.Text = locale.installer_close;
+        }
+
         public void DownloadAndInstall()
         {
             Main.main.WriteLog = "[SoDOff installer] initializing install process." + "\n";
@@ -125,14 +156,16 @@ namespace SoDOff_navigator
             string archive_md5 = "";
             string original_md5 = "";
 
-            label_title.Text = "Installing, please wait...";
-            label_title.Location = new Point(56, 130);
+            //label_title.Text = "Installing, please wait...";
+            label_title.Text = locale.install_in_progress;
+            label_title.Location = CenterPosition();
             groupBox_install_path.Visible = false;
             groupBox_client_ver.Visible = false;
             btn_install.Visible = false;
             btn_locate.Visible = false;
             label_preinstalled.Visible = false;
-            btn_close.Text = "Cancel";
+            //btn_close.Text = "Cancel";
+            btn_close.Text = locale.installer_cancel;
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(100, 273);
 
@@ -255,12 +288,15 @@ namespace SoDOff_navigator
 
             if (archive_md5 != original_md5)
             {
-                label_title.Text = "Installation failed.";
-                label_title.Location = new Point(64, 130);
-                btn_close.Text = "Finish";
+                //label_title.Text = "Installation failed.";
+                label_title.Text = locale.error_install_failed;
+                label_title.Location = CenterPosition();
+                //btn_close.Text = "Finish";
+                btn_close.Text = locale.installer_finish;
                 Main.main.WriteLog = "[SoDOff installer] failed to verify archive integrity." + "\n";
 
-                MessageBox.Show("Failed to verify archive integrity!\nCheck your internet connection.", "SoDOff Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Failed to verify archive integrity!\nCheck your internet connection.", "SoDOff Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(locale.error_archive_integrity, "SoDOff Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (archive_md5 == original_md5)
             {
@@ -332,9 +368,11 @@ namespace SoDOff_navigator
                     }
                 }
 
-                label_title.Text = "Installation finished.";
-                label_title.Location = new Point(64, 130);
-                btn_close.Text = "Finish";
+                //label_title.Text = "Installation finished.";
+                label_title.Text = locale.install_complete;
+                label_title.Location = CenterPosition();
+                //btn_close.Text = "Finish";
+                btn_close.Text = locale.installer_finish;
                 Main.main.WriteLog = "[SoDOff installer] finished install process." + "\n";
             }
         }
@@ -342,14 +380,16 @@ namespace SoDOff_navigator
         public void LocatePreinstalled()
         {
             Main.main.WriteLog = "[SoDOff installer] initializing locate process." + "\n";
-            label_title.Text = "Scanning, please wait...";
-            label_title.Location = new Point(56, 130);
+            //label_title.Text = "Scanning, please wait...";
+            label_title.Text = locale.locate_in_progress;
+            label_title.Location = CenterPosition();
             groupBox_install_path.Visible = false;
             groupBox_client_ver.Visible = false;
             btn_install.Visible = false;
             btn_locate.Visible = false;
             label_preinstalled.Visible = false;
-            btn_close.Text = "Cancel";
+            //btn_close.Text = "Cancel";
+            btn_close.Text = locale.installer_cancel;
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(100, 273);
 
@@ -419,9 +459,11 @@ namespace SoDOff_navigator
                     }
                 }
             }
-            label_title.Text = "Scanning finished.";
-            label_title.Location = new Point(68, 130);
-            btn_close.Text = "Finish";
+            //label_title.Text = "Scanning finished.";
+            label_title.Text = locale.locate_complete;
+            label_title.Location = CenterPosition();
+            //btn_close.Text = "Finish";
+            btn_close.Text = locale.installer_finish;
             Main.main.WriteLog = "[SoDOff installer] finished locate process." + "\n";
         }
 
