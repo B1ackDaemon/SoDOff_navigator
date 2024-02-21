@@ -56,6 +56,8 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Checksum.cs" />
+    <Compile Include="Locale.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

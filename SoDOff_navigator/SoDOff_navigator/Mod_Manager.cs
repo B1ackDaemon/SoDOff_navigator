@@ -191,7 +191,15 @@ namespace SoDOff_navigator
             label_mod_name.Text = locale.mod_name + mod[mod_index[listBox_mods.SelectedIndex]].name;
             label_author.Text = locale.mod_author + mod[mod_index[listBox_mods.SelectedIndex]].author;
             label_description.Text = locale.mod_description + mod[mod_index[listBox_mods.SelectedIndex]].description;
-            label_dependency.Text = locale.mod_dependency + mod[mod_index[listBox_mods.SelectedIndex]].dependency;
+            
+            if (mod[mod_index[listBox_mods.SelectedIndex]].dependency == "none")
+            {
+                label_dependency.Text = locale.mod_dependency + locale.mod_none;
+            }
+            else if (mod[mod_index[listBox_mods.SelectedIndex]].dependency != "none")
+            {
+                label_dependency.Text = locale.mod_dependency + mod[mod_index[listBox_mods.SelectedIndex]].dependency;
+            }
             if (mod[mod_index[listBox_mods.SelectedIndex]].direct_download == "no")
             {
                 label_direct_dl.Text = locale.mod_direct_dl + locale.mod_no;
@@ -402,7 +410,7 @@ namespace SoDOff_navigator
                 Client.DownloadFile(mod[index].download_link, "Mods" + @"\" + mod[index].file_name);
             }
 
-            if (mod[index].dependency != "none")
+            if (mod[index].dependency != "none" && mod[index].dependency.Contains(",") == false)
             {
                 Main.main.WriteLog = "[Mod Manager] required dependency detected: " + mod[index].dependency + "\n";
                 string result = "";
@@ -411,6 +419,23 @@ namespace SoDOff_navigator
                 while (result != "none")
                 {
                     result = InstallDependency(result, game_path);
+                }
+            }
+            else if (mod[index].dependency != "none" && mod[index].dependency.Contains(",") == true)
+            {
+                Main.main.WriteLog = "[Mod Manager] required dependencies detected: " + mod[index].dependency + "\n";
+
+                string[] dependencies = mod[index].dependency.Split(',');
+
+                for (int i = 0; i < dependencies.Length; i++)
+                {
+                    string result = "";
+                    result = dependencies[i].TrimStart();
+
+                    while (result != "none")
+                    {
+                        result = InstallDependency(result, game_path);
+                    }
                 }
             }
 
@@ -520,7 +545,23 @@ namespace SoDOff_navigator
                     }
                     else if (mod[i].file_name.Contains(".zip") == true)
                     {
-                        ExtractZip("Mods" + @"\" + mod[i].file_name, game_dir);
+                        if (File.Exists(game_dir + @"\BepInEx\core\BepInEx.dll") == true)
+                        {
+                            string file_md5 = HashingCompute.GetMD5HashFromFile(game_dir + @"\BepInEx\core\BepInEx.dll");
+                            if (file_md5 == "1a5e430022ec26485dee232e9ad3780f")
+                            {
+                                Main.main.WriteLog = "[Mod Manager] mod file: " + mod[i].file_name + " already installed, skipping..." + "\n";
+                            }
+                            else if (file_md5 != "1a5e430022ec26485dee232e9ad3780f")
+                            {
+                                Main.main.WriteLog = "[Mod Manager] mod file: " + "BepInEx.dll" + " outdated, updating to actual version..." + "\n";
+                                ExtractZip("Mods" + @"\" + mod[i].file_name, game_dir);
+                            }
+                        }
+                        else if (File.Exists(game_dir + @"\BepInEx\core\BepInEx.dll") == false)
+                        {
+                            ExtractZip("Mods" + @"\" + mod[i].file_name, game_dir);
+                        }
                     }
                     Main.main.WriteLog = "[Mod Manager] finished installing dependency: " + mod[i].name + "\n";
                     return mod[i].dependency;
