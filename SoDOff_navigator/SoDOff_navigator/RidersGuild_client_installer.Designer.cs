@@ -37,7 +37,12 @@
             this.btn_install = new System.Windows.Forms.Button();
             this.label_preinstalled = new System.Windows.Forms.Label();
             this.btn_locate = new System.Windows.Forms.Button();
+            this.groupBox_client_ver = new System.Windows.Forms.GroupBox();
+            this.comboBox_version = new System.Windows.Forms.ComboBox();
+            this.radioButton_version_default = new System.Windows.Forms.RadioButton();
+            this.radioButton_version_select = new System.Windows.Forms.RadioButton();
             this.groupBox_install_path.SuspendLayout();
+            this.groupBox_client_ver.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_title
@@ -84,7 +89,7 @@
             // 
             // btn_close
             // 
-            this.btn_close.Location = new System.Drawing.Point(200, 253);
+            this.btn_close.Location = new System.Drawing.Point(200, 306);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(75, 23);
             this.btn_close.TabIndex = 11;
@@ -94,7 +99,7 @@
             // 
             // btn_install
             // 
-            this.btn_install.Location = new System.Drawing.Point(99, 181);
+            this.btn_install.Location = new System.Drawing.Point(99, 246);
             this.btn_install.Name = "btn_install";
             this.btn_install.Size = new System.Drawing.Size(75, 33);
             this.btn_install.TabIndex = 10;
@@ -105,7 +110,7 @@
             // label_preinstalled
             // 
             this.label_preinstalled.AutoSize = true;
-            this.label_preinstalled.Location = new System.Drawing.Point(6, 237);
+            this.label_preinstalled.Location = new System.Drawing.Point(6, 290);
             this.label_preinstalled.Name = "label_preinstalled";
             this.label_preinstalled.Size = new System.Drawing.Size(86, 13);
             this.label_preinstalled.TabIndex = 14;
@@ -113,7 +118,7 @@
             // 
             // btn_locate
             // 
-            this.btn_locate.Location = new System.Drawing.Point(9, 253);
+            this.btn_locate.Location = new System.Drawing.Point(9, 306);
             this.btn_locate.Name = "btn_locate";
             this.btn_locate.Size = new System.Drawing.Size(75, 23);
             this.btn_locate.TabIndex = 13;
@@ -121,11 +126,58 @@
             this.btn_locate.UseVisualStyleBackColor = true;
             this.btn_locate.Click += new System.EventHandler(this.btn_locate_Click);
             // 
+            // groupBox_client_ver
+            // 
+            this.groupBox_client_ver.Controls.Add(this.comboBox_version);
+            this.groupBox_client_ver.Controls.Add(this.radioButton_version_default);
+            this.groupBox_client_ver.Controls.Add(this.radioButton_version_select);
+            this.groupBox_client_ver.Location = new System.Drawing.Point(21, 153);
+            this.groupBox_client_ver.Name = "groupBox_client_ver";
+            this.groupBox_client_ver.Size = new System.Drawing.Size(238, 75);
+            this.groupBox_client_ver.TabIndex = 15;
+            this.groupBox_client_ver.TabStop = false;
+            this.groupBox_client_ver.Text = "Client version";
+            // 
+            // comboBox_version
+            // 
+            this.comboBox_version.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_version.FormattingEnabled = true;
+            this.comboBox_version.Location = new System.Drawing.Point(181, 44);
+            this.comboBox_version.Name = "comboBox_version";
+            this.comboBox_version.Size = new System.Drawing.Size(45, 21);
+            this.comboBox_version.TabIndex = 8;
+            this.comboBox_version.Visible = false;
+            // 
+            // radioButton_version_default
+            // 
+            this.radioButton_version_default.AutoSize = true;
+            this.radioButton_version_default.Checked = true;
+            this.radioButton_version_default.Location = new System.Drawing.Point(16, 21);
+            this.radioButton_version_default.Name = "radioButton_version_default";
+            this.radioButton_version_default.Size = new System.Drawing.Size(154, 17);
+            this.radioButton_version_default.TabIndex = 6;
+            this.radioButton_version_default.TabStop = true;
+            this.radioButton_version_default.Text = "Install 3.31 version (default)";
+            this.radioButton_version_default.UseVisualStyleBackColor = true;
+            this.radioButton_version_default.CheckedChanged += new System.EventHandler(this.radioButton_version_default_CheckedChanged);
+            // 
+            // radioButton_version_select
+            // 
+            this.radioButton_version_select.AutoSize = true;
+            this.radioButton_version_select.Location = new System.Drawing.Point(16, 44);
+            this.radioButton_version_select.Name = "radioButton_version_select";
+            this.radioButton_version_select.Size = new System.Drawing.Size(158, 17);
+            this.radioButton_version_select.TabIndex = 7;
+            this.radioButton_version_select.Text = "I want to install older version";
+            this.radioButton_version_select.UseVisualStyleBackColor = true;
+            this.radioButton_version_select.CheckedChanged += new System.EventHandler(this.radioButton_version_select_CheckedChanged);
+            // 
             // RidersGuild_client_installer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 292);
+            this.ClientSize = new System.Drawing.Size(284, 342);
+            this.Controls.Add(this.groupBox_client_ver);
             this.Controls.Add(this.label_preinstalled);
             this.Controls.Add(this.btn_locate);
             this.Controls.Add(this.groupBox_install_path);
@@ -139,6 +191,8 @@
             this.Text = "RidersGuild client installer";
             this.groupBox_install_path.ResumeLayout(false);
             this.groupBox_install_path.PerformLayout();
+            this.groupBox_client_ver.ResumeLayout(false);
+            this.groupBox_client_ver.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,5 +208,9 @@
         private System.Windows.Forms.Button btn_install;
         private System.Windows.Forms.Label label_preinstalled;
         private System.Windows.Forms.Button btn_locate;
+        private System.Windows.Forms.GroupBox groupBox_client_ver;
+        private System.Windows.Forms.ComboBox comboBox_version;
+        private System.Windows.Forms.RadioButton radioButton_version_default;
+        private System.Windows.Forms.RadioButton radioButton_version_select;
     }
 }

@@ -70,7 +70,7 @@ namespace SoDOff_navigator
                 else if (radioButton_version_select.Checked == true && comboBox_version.Text == "")
                 {
                     //MessageBox.Show("No client version selected!", "Select game version", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show(locale.error_client_version, "Select game folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(locale.error_client_version, "Select game version", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (radioButton_version_select.Checked == true && comboBox_version.Text != "")
                 {

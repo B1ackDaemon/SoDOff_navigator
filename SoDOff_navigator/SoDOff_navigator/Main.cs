@@ -69,6 +69,7 @@ namespace SoDOff_navigator
                 key.SetValue("SoDOff_312", "not installed");
                 key.SetValue("SoDOff_331", "not installed");
                 key.SetValue("RidersGuild_online", "not installed");
+                key.SetValue("RidersGuild_online_319", "not installed");
                 key.SetValue("RidersGuild_offline", "not installed");
                 key.Close();
             }
@@ -232,28 +233,61 @@ namespace SoDOff_navigator
 
         private void btn_play_riders_guild_online_Click(object sender, EventArgs e)
         {
-            string path = "";
+            string path_319 = "";
+            string path_331 = "";
+            int versions_installed = 0;
 
             richTextBox_log.Text += "[Play Riders Guild] Reading registry keys." + "\n";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator");
             if (key != null)
             {
-                Object o = key.GetValue("RidersGuild_online");
+                Object o = key.GetValue("RidersGuild_online_319");
                 if (o != null)
                 {
-                    path = o.ToString();
+                    path_319 = o.ToString();
+                }
+                o = key.GetValue("RidersGuild_online");
+                if (o != null)
+                {
+                    path_331 = o.ToString();
                 }
             }
             key.Close();
 
-            if (path != "not installed")
+            if (path_319 != "not installed")
             {
-                richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.31 (online)..." + "\n";
-                Process clientProcess = new Process();
-                clientProcess.StartInfo.FileName = path + @"\DOMain.exe";
-                clientProcess.Start();
+                versions_installed++;
             }
-            else if (path == "not installed")
+            if (path_331 != "not installed")
+            {
+                versions_installed++;
+            }
+
+            if (versions_installed > 1)
+            {
+                richTextBox_log.Text += "[Play Riders Guild] Multiple versions detected!" + "\n";
+
+                RidersGuild_version_selector select_dialog = new RidersGuild_version_selector();
+                select_dialog.Show();
+            }
+            else if (versions_installed == 1)
+            {
+                if (path_319 != "not installed")
+                {
+                    richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.19 (online)..." + "\n";
+                    Process clientProcess = new Process();
+                    clientProcess.StartInfo.FileName = path_319 + @"\DOMain.exe";
+                    clientProcess.Start();
+                }
+                else if (path_331 != "not installed")
+                {
+                    richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.31 (online)..." + "\n";
+                    Process clientProcess = new Process();
+                    clientProcess.StartInfo.FileName = path_331 + @"\DOMain.exe";
+                    clientProcess.Start();
+                }
+            }
+            else if (versions_installed == 0)
             {
                 MessageBox.Show(locale.main_play_error_client_not_found, "Play Riders Guild", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

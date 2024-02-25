@@ -57,11 +57,32 @@ namespace SoDOff_navigator
             //else if (textBox_path.Text.Contains("Select...") == false)
             else if (textBox_path.Text.Contains(locale.installer_path) == false)
             {
-                Main.main.WriteLog = "[Riders Guild installer] creating install thread." + "\n";
+                /*Main.main.WriteLog = "[Riders Guild installer] creating install thread." + "\n";
                 Thread install_thread;
                 install_thread = new Thread(DownloadAndInstall);
                 install_thread.Start();
-                install_thread.IsBackground = true;
+                install_thread.IsBackground = true;*/
+                if (radioButton_version_default.Checked == true)
+                {
+                    Main.main.WriteLog = "[Riders Guild installer] creating install thread." + "\n";
+                    Thread install_thread;
+                    install_thread = new Thread(DownloadAndInstall);
+                    install_thread.Start();
+                    install_thread.IsBackground = true;
+                }
+                else if (radioButton_version_select.Checked == true && comboBox_version.Text == "")
+                {
+                    //MessageBox.Show("No client version selected!", "Select game version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(locale.error_client_version, "Select game version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (radioButton_version_select.Checked == true && comboBox_version.Text != "")
+                {
+                    Main.main.WriteLog = "[Riders Guild installer] creating install thread." + "\n";
+                    Thread install_thread;
+                    install_thread = new Thread(DownloadAndInstall);
+                    install_thread.Start();
+                    install_thread.IsBackground = true;
+                }
             }
         }
 
@@ -112,6 +133,9 @@ namespace SoDOff_navigator
             groupBox_install_path.Text = locale.installer_install_path;
             textBox_path.Text = locale.installer_path;
             btn_install_path.Text = locale.installer_select_path;
+            groupBox_client_ver.Text = locale.sodoff_installer_client_ver;
+            radioButton_version_default.Text = locale.sodoff_installer_version_default;
+            radioButton_version_select.Text = locale.sodoff_installer_version_select;
             btn_install.Text = locale.installer_install;
             label_preinstalled.Text = locale.installer_preinstalled;
             btn_locate.Text = locale.installer_locate;
@@ -122,6 +146,7 @@ namespace SoDOff_navigator
         public void DownloadAndInstall()
         {
             Main.main.WriteLog = "[Riders Guild installer] initializing install process." + "\n";
+            string version = "";
             string archive_name = "";
             string archive_md5 = "";
             string original_md5 = "";
@@ -130,6 +155,7 @@ namespace SoDOff_navigator
             label_title.Text = locale.install_in_progress;
             label_title.Location = CenterPosition();
             groupBox_install_path.Visible = false;
+            groupBox_client_ver.Visible = false;
             btn_install.Visible = false;
             btn_locate.Visible = false;
             label_preinstalled.Visible = false;
@@ -143,21 +169,54 @@ namespace SoDOff_navigator
                 Directory.CreateDirectory(textBox_path.Text);
             }
 
-            archive_name = @"\ridersguild_SoD_3.31.zip";
-            original_md5 = "fa1628bdf364f8424e5d9fb331a62966";
-            if (File.Exists(textBox_path.Text + archive_name) == true)
+            if (radioButton_version_default.Checked == true)
             {
-                Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
-                archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
+                version = "3.31";
+                Main.main.WriteLog = "[Riders Guild installer] setting client version to: " + version + "\n";
             }
-            if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
+            else if (radioButton_version_select.Checked == true)
             {
-                Main.main.WriteLog = "[Riders Guild installer] downloading zip archive from Riders Guild server..." + "\n";
-                WebClient Client = new WebClient();
-                Client.DownloadFile("https://ridersguild.org/ridersguild_SoD_3.31.zip", textBox_path.Text + archive_name);
+                version = comboBox_version.Text;
+                Main.main.WriteLog = "[Riders Guild installer] setting client version to: " + version + "\n";
+            }
 
-                Main.main.WriteLog = "[Riders Guild installer] checking zip archive checksum..." + "\n";
-                archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
+            if (version == "3.19")
+            {
+                archive_name = @"\ridersguild_SoD_3.19.zip";
+                original_md5 = "7a0d57a38dfc04c752d404234af6473c";
+                if (File.Exists(textBox_path.Text + archive_name) == true)
+                {
+                    Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
+                }
+                if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
+                {
+                    Main.main.WriteLog = "[Riders Guild installer] downloading zip archive from Riders Guild server..." + "\n";
+                    WebClient Client = new WebClient();
+                    Client.DownloadFile("https://ridersguild.org/ridersguild_SoD_3.19.zip", textBox_path.Text + archive_name);
+
+                    Main.main.WriteLog = "[Riders Guild installer] checking zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
+                }
+            }
+            else if (version == "3.31")
+            {
+                archive_name = @"\ridersguild_SoD_3.31.zip";
+                original_md5 = "fa1628bdf364f8424e5d9fb331a62966";
+                if (File.Exists(textBox_path.Text + archive_name) == true)
+                {
+                    Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
+                }
+                if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
+                {
+                    Main.main.WriteLog = "[Riders Guild installer] downloading zip archive from Riders Guild server..." + "\n";
+                    WebClient Client = new WebClient();
+                    Client.DownloadFile("https://ridersguild.org/ridersguild_SoD_3.31.zip", textBox_path.Text + archive_name);
+
+                    Main.main.WriteLog = "[Riders Guild installer] checking zip archive checksum..." + "\n";
+                    archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
+                }
             }
 
             if (archive_md5 != original_md5)
@@ -214,8 +273,16 @@ namespace SoDOff_navigator
                 {
                     if (key != null)  // Must check for null key
                     {
-                        key.SetValue("RidersGuild_online", textBox_path.Text + @"\ridersguild_SoD_3.31");
-                        Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (online)" + "\n";
+                        if (version == "3.19")
+                        {
+                            key.SetValue("RidersGuild_online_319", textBox_path.Text + @"\ridersguild_SoD_3.19");
+                            Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.19 (online)" + "\n";
+                        }
+                        else if (version == "3.31")
+                        {
+                            key.SetValue("RidersGuild_online", textBox_path.Text + @"\ridersguild_SoD_3.31");
+                            Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (online)" + "\n";
+                        }
                     }
                 }
 
@@ -235,6 +302,7 @@ namespace SoDOff_navigator
             label_title.Text = locale.locate_in_progress;
             label_title.Location = CenterPosition();
             groupBox_install_path.Visible = false;
+            groupBox_client_ver.Visible = false;
             btn_install.Visible = false;
             btn_locate.Visible = false;
             label_preinstalled.Visible = false;
@@ -249,7 +317,18 @@ namespace SoDOff_navigator
             {
                 string md5 = HashingCompute.GetMD5HashFromFile(file);
                 string path = file.Replace("DOMain.exe", "");
-                if (md5 == "b12b8f61fbaa9fae76f22e63d81467db" && File.Exists(path + @"\SoDServer.exe") == false)
+                if (md5 == "3b6594a5c5aa8e5a7e8d7de9ff286b18")
+                {
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator", true)) // Must dispose key or use "using" keyword
+                    {
+                        if (key != null)  // Must check for null key
+                        {
+                            key.SetValue("RidersGuild_online_319", file.Replace("DOMain.exe", ""));
+                            Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.19" + "\n";
+                        }
+                    }
+                }
+                else if (md5 == "b12b8f61fbaa9fae76f22e63d81467db" && File.Exists(path + @"\SoDServer.exe") == false)
                 {
                     string dll_path = file.Replace("DOMain.exe", "") + @"\DOMain_Data\Managed\Assembly-CSharp.dll";
                     string dll_md5 = HashingCompute.GetMD5HashFromFile(dll_path);
@@ -309,6 +388,18 @@ namespace SoDOff_navigator
             {
                 output.Write(buffer, 0, len);
             }
+        }
+
+        private void radioButton_version_default_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBox_version.Visible = false;
+        }
+
+        private void radioButton_version_select_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBox_version.Visible = true;
+            comboBox_version.Items.Clear();
+            comboBox_version.Items.Add("3.19");
         }
     }
 }

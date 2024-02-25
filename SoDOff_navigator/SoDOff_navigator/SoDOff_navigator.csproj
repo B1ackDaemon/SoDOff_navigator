@@ -84,6 +84,12 @@
     <Compile Include="RidersGuild_server_installer.Designer.cs">
       <DependentUpon>RidersGuild_server_installer.cs</DependentUpon>
     </Compile>
+    <Compile Include="RidersGuild_version_selector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RidersGuild_version_selector.Designer.cs">
+      <DependentUpon>RidersGuild_version_selector.cs</DependentUpon>
+    </Compile>
     <Compile Include="SoDOff_client_installer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RidersGuild_server_installer.resx">
       <DependentUpon>RidersGuild_server_installer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RidersGuild_version_selector.resx">
+      <DependentUpon>RidersGuild_version_selector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SoDOff_client_installer.resx">
       <DependentUpon>SoDOff_client_installer.cs</DependentUpon>
