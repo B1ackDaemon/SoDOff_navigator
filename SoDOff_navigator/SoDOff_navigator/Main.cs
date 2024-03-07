@@ -70,6 +70,8 @@ namespace SoDOff_navigator
                 key.SetValue("SoDOff_331", "not installed");
                 key.SetValue("RidersGuild_online", "not installed");
                 key.SetValue("RidersGuild_online_319", "not installed");
+                key.SetValue("RidersGuild_online_321", "not installed");
+                key.SetValue("RidersGuild_online_326", "not installed");
                 key.SetValue("RidersGuild_offline", "not installed");
                 key.Close();
             }
@@ -234,6 +236,8 @@ namespace SoDOff_navigator
         private void btn_play_riders_guild_online_Click(object sender, EventArgs e)
         {
             string path_319 = "";
+            string path_321 = "";
+            string path_326 = "";
             string path_331 = "";
             int versions_installed = 0;
 
@@ -246,6 +250,16 @@ namespace SoDOff_navigator
                 {
                     path_319 = o.ToString();
                 }
+                o = key.GetValue("RidersGuild_online_321");
+                if (o != null)
+                {
+                    path_321 = o.ToString();
+                }
+                o = key.GetValue("RidersGuild_online_326");
+                if (o != null)
+                {
+                    path_326 = o.ToString();
+                }
                 o = key.GetValue("RidersGuild_online");
                 if (o != null)
                 {
@@ -255,6 +269,14 @@ namespace SoDOff_navigator
             key.Close();
 
             if (path_319 != "not installed")
+            {
+                versions_installed++;
+            }
+            if (path_321 != "not installed")
+            {
+                versions_installed++;
+            }
+            if (path_326 != "not installed")
             {
                 versions_installed++;
             }
@@ -277,6 +299,20 @@ namespace SoDOff_navigator
                     richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.19 (online)..." + "\n";
                     Process clientProcess = new Process();
                     clientProcess.StartInfo.FileName = path_319 + @"\DOMain.exe";
+                    clientProcess.Start();
+                }
+                else if (path_321 != "not installed")
+                {
+                    richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.21 (online)..." + "\n";
+                    Process clientProcess = new Process();
+                    clientProcess.StartInfo.FileName = path_321 + @"\DOMain.exe";
+                    clientProcess.Start();
+                }
+                else if (path_326 != "not installed")
+                {
+                    richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.26 (online)..." + "\n";
+                    Process clientProcess = new Process();
+                    clientProcess.StartInfo.FileName = path_326 + @"\DOMain.exe";
                     clientProcess.Start();
                 }
                 else if (path_331 != "not installed")

@@ -16,6 +16,8 @@ namespace SoDOff_navigator
     {
         Locale locale = Main.main.GetLocale();
         string path_319 = "";
+        string path_321 = "";
+        string path_326 = "";
         string path_331 = "";
         public RidersGuild_version_selector()
         {
@@ -26,6 +28,8 @@ namespace SoDOff_navigator
             groupBox1.Text = locale.sodoff_version_select;
 
             radioButton_319.Enabled = false;
+            radioButton_321.Enabled = false;
+            radioButton_326.Enabled = false;
             radioButton_331.Enabled = false;
             Main.main.WriteLog = "[Riders Guild version selector] reading registry keys." + "\n";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator");
@@ -35,6 +39,16 @@ namespace SoDOff_navigator
                 if (o != null)
                 {
                     path_319 = o.ToString();
+                }
+                o = key.GetValue("RidersGuild_online_321");
+                if (o != null)
+                {
+                    path_321 = o.ToString();
+                }
+                o = key.GetValue("RidersGuild_online_326");
+                if (o != null)
+                {
+                    path_326 = o.ToString();
                 }
                 o = key.GetValue("RidersGuild_online");
                 if (o != null)
@@ -47,6 +61,14 @@ namespace SoDOff_navigator
             if (path_319 != "not installed")
             {
                 radioButton_319.Enabled = true;
+            }
+            if (path_321 != "not installed")
+            {
+                radioButton_321.Enabled = true;
+            }
+            if (path_326 != "not installed")
+            {
+                radioButton_326.Enabled = true;
             }
             if (path_331 != "not installed")
             {
@@ -61,6 +83,20 @@ namespace SoDOff_navigator
                 Main.main.WriteLog = "[Riders Guild version selector] Launching version: 3.19..." + "\n";
                 Process clientProcess = new Process();
                 clientProcess.StartInfo.FileName = path_319 + @"\DOMain.exe";
+                clientProcess.Start();
+            }
+            else if (radioButton_321.Checked == true)
+            {
+                Main.main.WriteLog = "[Riders Guild version selector] Launching version: 3.21..." + "\n";
+                Process clientProcess = new Process();
+                clientProcess.StartInfo.FileName = path_321 + @"\DOMain.exe";
+                clientProcess.Start();
+            }
+            else if (radioButton_326.Checked == true)
+            {
+                Main.main.WriteLog = "[Riders Guild version selector] Launching version: 3.26..." + "\n";
+                Process clientProcess = new Process();
+                clientProcess.StartInfo.FileName = path_326 + @"\DOMain.exe";
                 clientProcess.Start();
             }
             else if (radioButton_331.Checked == true)
