@@ -41,6 +41,9 @@
             this.groupBox_install_path = new System.Windows.Forms.GroupBox();
             this.btn_locate = new System.Windows.Forms.Button();
             this.label_preinstalled = new System.Windows.Forms.Label();
+            this.labelDownloaded = new System.Windows.Forms.Label();
+            this.labelSpeed = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.groupBox_client_ver.SuspendLayout();
             this.groupBox_install_path.SuspendLayout();
             this.SuspendLayout();
@@ -171,11 +174,39 @@
             this.label_preinstalled.TabIndex = 11;
             this.label_preinstalled.Text = "I have it installed";
             // 
+            // labelDownloaded
+            // 
+            this.labelDownloaded.AutoSize = true;
+            this.labelDownloaded.Location = new System.Drawing.Point(16, 409);
+            this.labelDownloaded.Name = "labelDownloaded";
+            this.labelDownloaded.Size = new System.Drawing.Size(67, 13);
+            this.labelDownloaded.TabIndex = 22;
+            this.labelDownloaded.Text = "Downloaded";
+            // 
+            // labelSpeed
+            // 
+            this.labelSpeed.AutoSize = true;
+            this.labelSpeed.Location = new System.Drawing.Point(189, 409);
+            this.labelSpeed.Name = "labelSpeed";
+            this.labelSpeed.Size = new System.Drawing.Size(38, 13);
+            this.labelSpeed.TabIndex = 21;
+            this.labelSpeed.Text = "Speed";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(19, 363);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(240, 23);
+            this.progressBar.TabIndex = 20;
+            // 
             // SoDOff_client_installer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 342);
+            this.Controls.Add(this.labelDownloaded);
+            this.Controls.Add(this.labelSpeed);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.label_preinstalled);
             this.Controls.Add(this.btn_locate);
             this.Controls.Add(this.groupBox_install_path);
@@ -211,5 +242,8 @@
         private System.Windows.Forms.ComboBox comboBox_version;
         private System.Windows.Forms.Button btn_locate;
         private System.Windows.Forms.Label label_preinstalled;
+        private System.Windows.Forms.Label labelDownloaded;
+        private System.Windows.Forms.Label labelSpeed;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }

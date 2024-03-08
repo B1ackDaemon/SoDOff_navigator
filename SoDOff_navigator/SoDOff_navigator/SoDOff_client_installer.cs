@@ -21,6 +21,9 @@ namespace SoDOff_navigator
     public partial class SoDOff_client_installer : Form
     {
         Locale locale = Main.main.GetLocale();
+        WebClient webClient;               // Our WebClient that will be doing the downloading for us
+        Stopwatch sw = new Stopwatch();    // The stopwatch which we will be using to calculate the download speed
+        bool DownloadCompleted = false;
         public SoDOff_client_installer()
         {
             InitializeComponent();
@@ -197,9 +200,12 @@ namespace SoDOff_navigator
                 if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
                 {
                     Main.main.WriteLog = "[SoDOff installer] downloading zip archive from SoDOff server..." + "\n";
-                    WebClient Client = new WebClient();
-                    Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_1.6");
-                    Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_1.6.zip", textBox_path.Text + archive_name);
+                    DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_1.6.zip", textBox_path.Text + archive_name);
+
+                    while (DownloadCompleted == false)
+                    {
+                        Thread.Sleep(1000);
+                    }
 
                     Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
                     archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
@@ -217,9 +223,12 @@ namespace SoDOff_navigator
                 if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
                 {
                     Main.main.WriteLog = "[SoDOff installer] downloading zip archive from SoDOff server..." + "\n";
-                    WebClient Client = new WebClient();
-                    Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_1.13");
-                    Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_1.13.zip", textBox_path.Text + archive_name);
+                    DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_1.13.zip", textBox_path.Text + archive_name);
+
+                    while (DownloadCompleted == false)
+                    {
+                        Thread.Sleep(1000);
+                    }
 
                     Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
                     archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
@@ -237,9 +246,12 @@ namespace SoDOff_navigator
                 if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
                 {
                     Main.main.WriteLog = "[SoDOff installer] downloading zip archive from SoDOff server..." + "\n";
-                    WebClient Client = new WebClient();
-                    Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_2.9");
-                    Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_2.9.zip", textBox_path.Text + archive_name);
+                    DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_2.9.zip", textBox_path.Text + archive_name);
+
+                    while (DownloadCompleted == false)
+                    {
+                        Thread.Sleep(1000);
+                    }
 
                     Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
                     archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
@@ -257,9 +269,12 @@ namespace SoDOff_navigator
                 if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
                 {
                     Main.main.WriteLog = "[SoDOff installer] downloading zip archive from SoDOff server..." + "\n";
-                    WebClient Client = new WebClient();
-                    Client.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_3.12");
-                    Client.DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_3.12.zip", textBox_path.Text + archive_name);
+                    DownloadFile("https://media.sodoff.spirtix.com/clients/SoD_3.12.zip", textBox_path.Text + archive_name);
+
+                    while (DownloadCompleted == false)
+                    {
+                        Thread.Sleep(1000);
+                    }
 
                     Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
                     archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
@@ -277,9 +292,12 @@ namespace SoDOff_navigator
                 if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
                 {
                     Main.main.WriteLog = "[SoDOff installer] downloading zip archive from SoDOff server..." + "\n";
-                    WebClient Client = new WebClient();
-                    Client.Headers.Add("Referer", "https://sodoff.spirtix.com/windows");
-                    Client.DownloadFile("https://media.sodoff.spirtix.com/clients/sod_windows.zip", textBox_path.Text + archive_name);
+                    DownloadFile("https://media.sodoff.spirtix.com/clients/sod_windows.zip", textBox_path.Text + archive_name);
+
+                    while (DownloadCompleted == false)
+                    {
+                        Thread.Sleep(1000);
+                    }
 
                     Main.main.WriteLog = "[SoDOff installer] checking zip archive checksum..." + "\n";
                     archive_md5 = HashingCompute.GetMD5HashFromFile(textBox_path.Text + archive_name);
@@ -501,6 +519,101 @@ namespace SoDOff_navigator
             while ((len = input.Read(buffer, 0, buffer.Length)) > 0)
             {
                 output.Write(buffer, 0, len);
+            }
+        }
+
+        public void DownloadFile(string urlAddress, string location)
+        {
+            using (webClient = new WebClient())
+            {
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+
+                if (urlAddress.Contains("SoD_1.6.zip") == true)
+                {
+                    webClient.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_1.6");
+                }
+                else if (urlAddress.Contains("SoD_1.13.zip") == true)
+                {
+                    webClient.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_1.13");
+                }
+                else if (urlAddress.Contains("SoD_2.9.zip") == true)
+                {
+                    webClient.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_2.9");
+                }
+                else if (urlAddress.Contains("SoD_3.12.zip") == true)
+                {
+                    webClient.Headers.Add("Referer", "https://sodoff.spirtix.com/SoD_3.12");
+                }
+                else if (urlAddress.Contains("sod_windows.zip") == true)
+                {
+                    webClient.Headers.Add("Referer", "https://sodoff.spirtix.com/windows");
+                }
+
+                // The variable that will be holding the url address (making sure it starts with http://)
+                Uri URL = urlAddress.StartsWith("https://", StringComparison.OrdinalIgnoreCase) ? new Uri(urlAddress) : new Uri("https://" + urlAddress);
+
+                // Start the stopwatch which we will be using to calculate the download speed
+                sw.Start();
+
+                try
+                {
+                    labelDownloaded.Text = "";
+                    labelSpeed.Text = "";
+                    progressBar.Location = new Point(21, 160);
+                    labelDownloaded.Location = new Point(18, 186);
+                    labelSpeed.Location = new Point(191, 186);
+                    // Start downloading the file
+                    webClient.DownloadFileAsync(URL, location);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        // The event that will fire whenever the progress of the WebClient is changed
+        private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            // Calculate download speed and output it to labelSpeed.
+            labelSpeed.Text = string.Format("{0} kb/s", (e.BytesReceived / 1024d / sw.Elapsed.TotalSeconds).ToString("0.00"));
+
+            // Update the progressbar percentage only when the value is not the same.
+            progressBar.Value = e.ProgressPercentage;
+
+            // Show the percentage on our label.
+            //labelPerc.Text = e.ProgressPercentage.ToString() + "%";
+            progressBar.Refresh();
+            progressBar.CreateGraphics().DrawString(e.ProgressPercentage.ToString() + "%",
+                new Font("Arial", (float)8.25, FontStyle.Regular),
+                Brushes.Black,
+                new PointF(progressBar.Width / 2 - 10, progressBar.Height / 2 - 7));
+
+            // Update the label with how much data have been downloaded so far and the total size of the file we are currently downloading
+            labelDownloaded.Text = string.Format("{0} MB's / {1} MB's",
+                (e.BytesReceived / 1024d / 1024d).ToString("0.00"),
+                (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
+        }
+
+        // The event that will trigger when the WebClient is completed
+        private void Completed(object sender, AsyncCompletedEventArgs e)
+        {
+            // Reset the stopwatch.
+            sw.Reset();
+
+            if (e.Cancelled == true)
+            {
+                //MessageBox.Show("Download has been canceled.");
+                Main.main.WriteLog = "[Riders Guild installer] download has been cancelled." + "\n";
+            }
+            else
+            {
+                progressBar.Visible = false;
+                labelDownloaded.Visible = false;
+                labelSpeed.Visible = false;
+                //MessageBox.Show("Download completed!");
+                DownloadCompleted = true;
             }
         }
     }

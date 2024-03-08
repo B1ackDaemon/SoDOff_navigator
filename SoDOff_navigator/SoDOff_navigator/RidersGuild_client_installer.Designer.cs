@@ -41,6 +41,9 @@
             this.comboBox_version = new System.Windows.Forms.ComboBox();
             this.radioButton_version_default = new System.Windows.Forms.RadioButton();
             this.radioButton_version_select = new System.Windows.Forms.RadioButton();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.labelSpeed = new System.Windows.Forms.Label();
+            this.labelDownloaded = new System.Windows.Forms.Label();
             this.groupBox_install_path.SuspendLayout();
             this.groupBox_client_ver.SuspendLayout();
             this.SuspendLayout();
@@ -172,11 +175,39 @@
             this.radioButton_version_select.UseVisualStyleBackColor = true;
             this.radioButton_version_select.CheckedChanged += new System.EventHandler(this.radioButton_version_select_CheckedChanged);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(21, 349);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(240, 23);
+            this.progressBar.TabIndex = 16;
+            // 
+            // labelSpeed
+            // 
+            this.labelSpeed.AutoSize = true;
+            this.labelSpeed.Location = new System.Drawing.Point(191, 395);
+            this.labelSpeed.Name = "labelSpeed";
+            this.labelSpeed.Size = new System.Drawing.Size(38, 13);
+            this.labelSpeed.TabIndex = 17;
+            this.labelSpeed.Text = "Speed";
+            // 
+            // labelDownloaded
+            // 
+            this.labelDownloaded.AutoSize = true;
+            this.labelDownloaded.Location = new System.Drawing.Point(18, 395);
+            this.labelDownloaded.Name = "labelDownloaded";
+            this.labelDownloaded.Size = new System.Drawing.Size(67, 13);
+            this.labelDownloaded.TabIndex = 19;
+            this.labelDownloaded.Text = "Downloaded";
+            // 
             // RidersGuild_client_installer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 342);
+            this.Controls.Add(this.labelDownloaded);
+            this.Controls.Add(this.labelSpeed);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.groupBox_client_ver);
             this.Controls.Add(this.label_preinstalled);
             this.Controls.Add(this.btn_locate);
@@ -212,5 +243,8 @@
         private System.Windows.Forms.ComboBox comboBox_version;
         private System.Windows.Forms.RadioButton radioButton_version_default;
         private System.Windows.Forms.RadioButton radioButton_version_select;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label labelSpeed;
+        private System.Windows.Forms.Label labelDownloaded;
     }
 }
