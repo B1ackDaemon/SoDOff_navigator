@@ -209,7 +209,7 @@ namespace SoDOff_navigator
             else if (version == "3.21")
             {
                 archive_name = @"\ridersguild_SoD_3.21.zip";
-                original_md5 = "b039d45393e67fd5128a49c7ce834e6c";
+                original_md5 = "b6559383dc42a80550fbdd68744c33b6";
                 if (File.Exists(textBox_path.Text + archive_name) == true)
                 {
                     Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
