@@ -416,6 +416,32 @@ namespace SoDOff_navigator
             mods_dialog.Show();
         }
 
+        private void btn_install_riders_guild_assets_Click(object sender, EventArgs e)
+        {
+            string path = "";
+            richTextBox_log.Text += "[Install assets Riders Guild] Reading registry keys." + "\n";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator");
+            if (key != null)
+            {
+                Object o = key.GetValue("RidersGuild_offline");
+                if (o != null)
+                {
+                    path = o.ToString();
+                }
+            }
+            key.Close();
+
+            if (path != "not installed")
+            {
+                RidersGuild_assets_installer assets_dialog = new RidersGuild_assets_installer();
+                assets_dialog.Show();
+            }
+            else if (path == "not installed")
+            {
+                MessageBox.Show(locale.main_play_error_server_not_found, "Install assets (Riders Guild)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void comboBox_language_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox_language.Text == "RU")
@@ -454,6 +480,7 @@ namespace SoDOff_navigator
             btn_play_sodoff_online.Text = locale.main_play_sodoff;
             btn_play_riders_guild_online.Text = locale.main_play_rg_online;
             btn_install_riders_guild_server.Text = locale.main_install_rg_server;
+            btn_install_riders_guild_assets.Text = locale.main_install_rg_assets;
             btn_start_server_riders_guild.Text = locale.main_start_rg_server;
             btn_play_riders_guild_offline.Text = locale.main_play_rg_offline;
             btn_discord_sodoff.Text = locale.main_visit_sodoff_discord;

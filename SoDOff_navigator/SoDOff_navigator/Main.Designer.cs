@@ -48,6 +48,7 @@
             this.label_about = new System.Windows.Forms.Label();
             this.comboBox_language = new System.Windows.Forms.ComboBox();
             this.label_language = new System.Windows.Forms.Label();
+            this.btn_install_riders_guild_assets = new System.Windows.Forms.Button();
             this.groupBox_play_online.SuspendLayout();
             this.groupBox_play_offline.SuspendLayout();
             this.groupBox_social.SuspendLayout();
@@ -156,6 +157,7 @@
             // 
             // groupBox_play_offline
             // 
+            this.groupBox_play_offline.Controls.Add(this.btn_install_riders_guild_assets);
             this.groupBox_play_offline.Controls.Add(this.btn_play_riders_guild_offline);
             this.groupBox_play_offline.Controls.Add(this.btn_start_server_riders_guild);
             this.groupBox_play_offline.Controls.Add(this.btn_install_riders_guild_server);
@@ -190,7 +192,7 @@
             // 
             this.btn_install_riders_guild_server.Location = new System.Drawing.Point(18, 35);
             this.btn_install_riders_guild_server.Name = "btn_install_riders_guild_server";
-            this.btn_install_riders_guild_server.Size = new System.Drawing.Size(162, 35);
+            this.btn_install_riders_guild_server.Size = new System.Drawing.Size(78, 35);
             this.btn_install_riders_guild_server.TabIndex = 0;
             this.btn_install_riders_guild_server.Text = "Install server\r\n(Riders Guild)";
             this.btn_install_riders_guild_server.UseVisualStyleBackColor = true;
@@ -250,6 +252,16 @@
             this.label_language.TabIndex = 14;
             this.label_language.Text = "Language:";
             // 
+            // btn_install_riders_guild_assets
+            // 
+            this.btn_install_riders_guild_assets.Location = new System.Drawing.Point(102, 35);
+            this.btn_install_riders_guild_assets.Name = "btn_install_riders_guild_assets";
+            this.btn_install_riders_guild_assets.Size = new System.Drawing.Size(78, 35);
+            this.btn_install_riders_guild_assets.TabIndex = 3;
+            this.btn_install_riders_guild_assets.Text = "Install assets\r\n(Riders Guild)";
+            this.btn_install_riders_guild_assets.UseVisualStyleBackColor = true;
+            this.btn_install_riders_guild_assets.Click += new System.EventHandler(this.btn_install_riders_guild_assets_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,6 +310,7 @@
         private System.Windows.Forms.Button btn_mod_manager;
         private System.Windows.Forms.ComboBox comboBox_language;
         private System.Windows.Forms.Label label_language;
+        private System.Windows.Forms.Button btn_install_riders_guild_assets;
     }
 }
 

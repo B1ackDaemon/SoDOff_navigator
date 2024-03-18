@@ -12,6 +12,7 @@
         public string main_play_sodoff;
         public string main_play_rg_online;
         public string main_install_rg_server;
+        public string main_install_rg_assets;
         public string main_start_rg_server;
         public string main_play_rg_offline;
         public string main_visit_sodoff_discord;
@@ -24,6 +25,7 @@
         public string sodoff_installer_title;
         public string rg_online_installer_title;
         public string rg_server_installer_title;
+        public string rg_assets_installer_title;
         public string sodoff_installer_client_ver;
         public string sodoff_installer_version_default;
         public string sodoff_installer_version_select;
@@ -80,6 +82,19 @@
         public string mod_no;
         public string mod_none;
 
+        public string rg_assets_dl_method;
+        public string rg_assets_dl_online;
+        public string rg_assets_pe_import;
+        public string rg_assets_quality;
+        public string rg_assets_quality_low;
+        public string rg_assets_quality_mid;
+        public string rg_assets_quality_high;
+        public string rg_assets_pe_path;
+        public string rg_assets_pe_description;
+
+        public string error_assets_quality;
+        public string error_pe_path;
+
         public Locale updateLocale(string language)
         {
             Locale stringList = new Locale();
@@ -96,6 +111,7 @@
                 main_play_sodoff = "Запуск SoDOff";
                 main_play_rg_online = "Запуск Riders Guild";
                 main_install_rg_server = "Установка сервера\nRiders Guild";
+                main_install_rg_assets = "Установка ассетов\nRiders Guild";
                 main_start_rg_server = "Запуск сервера Riders Guild";
                 main_play_rg_offline = "Запуск Riders Guild";
                 main_visit_sodoff_discord = "Discord SoDOff";
@@ -109,6 +125,7 @@
                 sodoff_installer_title = "Вас приветствует установщик!\nВыберите папку для установки\nи нажмите кнопку Установить.";
                 rg_online_installer_title = "Вас приветствует установщик!\nВыберите папку для установки\nи нажмите кнопку Установить.";
                 rg_server_installer_title = "Вас приветствует установщик!\nВыберите папку для установки\nи нажмите кнопку Установить.";
+                rg_assets_installer_title = "Вас приветствует установщик!\nВыберите способ для установки\nи нажмите кнопку Установить.";
                 installer_install_path = "Путь для установки";
                 installer_path = "Нажмите 'Выбрать...'";
                 installer_select_path = "Выбрать...";
@@ -167,6 +184,20 @@
                 mod_yes = "да";
                 mod_no = "нет";
                 mod_none = "отсутствует";
+
+                rg_assets_dl_method = "Выберите способ закачки";
+                rg_assets_dl_online = "Скачать с сервера Riders Guild";
+                rg_assets_pe_import = "Импорт ассетов из Project Edge";
+                rg_assets_quality = "Выберите качество ассетов";
+                rg_assets_quality_low = "Низкое";
+                rg_assets_quality_mid = "Среднее";
+                rg_assets_quality_high = "Высокое";
+                rg_assets_pe_path = "Путь к Project Edge";
+                rg_assets_pe_description = "Укажите папку с установленным\nProject Edge или 3.31.0 archive.sga";
+
+                error_assets_quality = "Не выбрано качество ассетов!";
+                error_pe_path = "Не указан путь к Project Edge!";
+
             }
             else if (language == "english")
             {
@@ -180,6 +211,7 @@
                 main_play_sodoff = "Play\nSoDOff";
                 main_play_rg_online = "Play\nRiders Guild";
                 main_install_rg_server = "Install server\n(Riders Guild)";
+                main_install_rg_assets = "Install assets\n(Riders Guild)";
                 main_start_rg_server = "Start server\n(Riders Guild)";
                 main_play_rg_offline = "Play\n(Riders Guild)";
                 main_visit_sodoff_discord = "Visit Discord (SoDOff)";
@@ -193,6 +225,7 @@
                 sodoff_installer_title = "Welcome to SoDOff client installer!\nPlease, select install path directory\nand click Install button to proceed.";
                 rg_online_installer_title = "Welcome to Riders Guild client installer!\nPlease, select install path directory\nand click Install button to proceed.";
                 rg_server_installer_title = "Welcome to Riders Guild server installer!\nPlease, select install path directory\nand click Install button to proceed.";
+                rg_assets_installer_title = "Welcome to RG assets installer!\nPlease, select download method\nand click Install button to proceed.";
                 installer_install_path = "Install path";
                 installer_path = "Press 'Select...' button";
                 installer_select_path = "Select...";
@@ -251,6 +284,19 @@
                 mod_yes = "yes";
                 mod_no = "no";
                 mod_none = "none";
+
+                rg_assets_dl_method = "Choose download method";
+                rg_assets_dl_online = "Download from Riders Guild server";
+                rg_assets_pe_import = "Import assets from Project Edge";
+                rg_assets_quality = "Choose assets quality";
+                rg_assets_quality_low = "Low";
+                rg_assets_quality_mid = "Mid";
+                rg_assets_quality_high = "High";
+                rg_assets_pe_path = "Project Edge path";
+                rg_assets_pe_description = "Choose directory with Project Edge\ninstalled or 3.31.0 archive.sga";
+
+                error_assets_quality = "Assets quality not specified!";
+                error_pe_path = "Project Edge path not specified!";
             }
 
             return stringList;

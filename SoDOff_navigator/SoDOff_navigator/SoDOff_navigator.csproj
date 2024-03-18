@@ -72,6 +72,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RidersGuild_assets_installer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RidersGuild_assets_installer.Designer.cs">
+      <DependentUpon>RidersGuild_assets_installer.cs</DependentUpon>
+    </Compile>
     <Compile Include="RidersGuild_client_installer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RidersGuild_assets_installer.resx">
+      <DependentUpon>RidersGuild_assets_installer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RidersGuild_client_installer.resx">
       <DependentUpon>RidersGuild_client_installer.cs</DependentUpon>
     </EmbeddedResource>
