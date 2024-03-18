@@ -190,14 +190,16 @@ namespace SoDOff_navigator
                 {
                     WebClient Client = new WebClient();
                     Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_low.txt", "pe_to_rg_331_low.txt");
+
+                    sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_low.txt");
                 }
                 if (File.Exists("rg_331_low.txt") == false)
                 {
                     WebClient Client = new WebClient();
                     Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_low.txt", "rg_331_low.txt");
-                }
-                sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_low.txt");
-                rg_list = System.IO.File.ReadAllLines("rg_331_low.txt");
+
+                    rg_list = System.IO.File.ReadAllLines("rg_331_low.txt");
+                } 
             }
             else if (assets_quality == "Mid")
             {
@@ -205,14 +207,16 @@ namespace SoDOff_navigator
                 {
                     WebClient Client = new WebClient();
                     Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_mid.txt", "pe_to_rg_331_mid.txt");
+
+                    sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_mid.txt");
                 }
                 if (File.Exists("rg_331_mid.txt") == false)
                 {
                     WebClient Client = new WebClient();
                     Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_mid.txt", "rg_331_mid.txt");
+
+                    rg_list = System.IO.File.ReadAllLines("rg_331_mid.txt");
                 }
-                sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_mid.txt");
-                rg_list = System.IO.File.ReadAllLines("rg_331_mid.txt");
             }
             else if (assets_quality == "High")
             {
@@ -220,14 +224,16 @@ namespace SoDOff_navigator
                 {
                     WebClient Client = new WebClient();
                     Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_high.txt", "pe_to_rg_331_high.txt");
+
+                    sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_high.txt");
                 }
                 if (File.Exists("rg_331_high.txt") == false)
                 {
                     WebClient Client = new WebClient();
                     Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_high.txt", "rg_331_high.txt");
+
+                    rg_list = System.IO.File.ReadAllLines("rg_331_high.txt");
                 }
-                sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_high.txt");
-                rg_list = System.IO.File.ReadAllLines("rg_331_high.txt");
             }
 
             if (radioButton_edge.Checked == true)
