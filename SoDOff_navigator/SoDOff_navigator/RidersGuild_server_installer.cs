@@ -256,7 +256,8 @@ namespace SoDOff_navigator
             {
                 string md5 = HashingCompute.GetMD5HashFromFile(file);
                 string path = file.Replace("DOMain.exe", "");
-                if (md5 == "b12b8f61fbaa9fae76f22e63d81467db" && File.Exists(path + @"\SoDServer.exe") == true)
+                if (md5 == "b12b8f61fbaa9fae76f22e63d81467db" && File.Exists(path + @"\SoDServer.exe") == true
+                    || md5 == "b12b8f61fbaa9fae76f22e63d81467db" && File.Exists(path + @"\SoDServer") == true)
                 {
                     using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator", true)) // Must dispose key or use "using" keyword
                     {
