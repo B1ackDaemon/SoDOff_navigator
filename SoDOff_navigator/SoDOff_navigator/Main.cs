@@ -355,7 +355,14 @@ namespace SoDOff_navigator
             {
                 richTextBox_log.Text += "[Play Riders Guild] Launching server (offline)..." + "\n";
                 Process clientProcess = new Process();
-                clientProcess.StartInfo.FileName = path + @"\SoDServer.exe";
+                if (File.Exists(path + @"\SoDServer.exe") == true)
+                {
+                    clientProcess.StartInfo.FileName = path + @"\SoDServer.exe";
+                }
+                else if (File.Exists(path + @"\SoDServer") == true)
+                {
+                    clientProcess.StartInfo.FileName = path + @"\SoDServer";
+                }
                 clientProcess.StartInfo.WorkingDirectory = path;
                 clientProcess.Start();
             }

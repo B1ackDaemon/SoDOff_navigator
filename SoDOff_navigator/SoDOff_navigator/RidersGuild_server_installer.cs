@@ -128,6 +128,7 @@ namespace SoDOff_navigator
             string archive_name = "";
             string archive_md5 = "";
             string original_md5 = "";
+            string platform = "";
 
             //label_title.Text = "Installing, please wait...";
             label_title.Text = locale.install_in_progress;
@@ -146,8 +147,22 @@ namespace SoDOff_navigator
                 Directory.CreateDirectory(textBox_path.Text);
             }
 
-            archive_name = @"\ridersguild-offline-3.31-windows.zip";
-            original_md5 = "e533624151864100b302222d0ba74703";
+            Process[] pname = Process.GetProcessesByName("winlogon");
+            if (pname.Length == 0)
+                platform = "linux";
+            else
+                platform = "windows";
+
+            if (platform == "windows")
+            {
+                archive_name = @"\ridersguild-offline-3.31-windows.zip";
+                original_md5 = "e533624151864100b302222d0ba74703";
+            }
+            else if (platform == "linux")
+            {
+                archive_name = @"\ridersguild-offline-3.31-linux.zip";
+                original_md5 = "b84b97d030971f11e758281a3931ef67";
+            }
             if (File.Exists(textBox_path.Text + archive_name) == true)
             {
                 Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
@@ -156,7 +171,15 @@ namespace SoDOff_navigator
             if (File.Exists(textBox_path.Text + archive_name) == false || archive_md5 != original_md5)
             {
                 Main.main.WriteLog = "[Riders Guild installer] downloading zip archive from Riders Guild server..." + "\n";
-                DownloadFile("https://ridersguild.org/ridersguild-offline-3.31-windows.zip", textBox_path.Text + archive_name);
+
+                if (platform == "windows")
+                {
+                    DownloadFile("https://ridersguild.org/ridersguild-offline-3.31-windows.zip", textBox_path.Text + archive_name);
+                }
+                else if (platform == "linux")
+                {
+                    DownloadFile("https://ridersguild.org/ridersguild-offline-3.31-linux.zip", textBox_path.Text + archive_name);
+                }
 
                 while (DownloadCompleted == false)
                 {
@@ -221,7 +244,14 @@ namespace SoDOff_navigator
                 {
                     if (key != null)  // Must check for null key
                     {
-                        key.SetValue("RidersGuild_offline", textBox_path.Text + @"\ridersguild-offline-3.31-windows");
+                        if (platform == "windows")
+                        {
+                            key.SetValue("RidersGuild_offline", textBox_path.Text + @"\ridersguild-offline-3.31-windows");
+                        }
+                        else if (platform == "linux")
+                        {
+                            key.SetValue("RidersGuild_offline", textBox_path.Text + @"\ridersguild-offline-3.31-linux");
+                        }
                         Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (offline)" + "\n";
                     }
                 }
