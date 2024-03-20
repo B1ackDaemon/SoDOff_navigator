@@ -102,10 +102,10 @@ namespace SoDOff_navigator
             int y = (this.Height / 2) - (label_title.Height * 3);
             return new Point(x, y);
         }
-        public Point CenterPositionX()
+        public Point CenterPositionX(Label label)
         {
-            int x = (this.Width / 2) - (label_title.Width / 2) - 6;
-            int y = label_title.Location.Y;
+            int x = (this.Width / 2) - (label.Width / 2) - 6;
+            int y = label.Location.Y;
             return new Point(x, y);
         }
 
@@ -119,7 +119,7 @@ namespace SoDOff_navigator
             label_preinstalled.Text = locale.installer_preinstalled;
             btn_locate.Text = locale.installer_locate;
             btn_close.Text = locale.installer_close;
-            label_title.Location = CenterPositionX();
+            label_title.Location = CenterPositionX(label_title);
         }
 
         public void DownloadAndInstall()
@@ -280,6 +280,8 @@ namespace SoDOff_navigator
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(105, 233);
 
+            int clients_found = 0;
+
             Main.main.WriteLog = "[Riders Guild installer] searching for installed SoD clients..." + "\n";
             string[] files = Directory.GetFiles(textBox_path.Text, "DOMain.exe", SearchOption.AllDirectories);
             foreach (string file in files)
@@ -297,11 +299,15 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (offline)" + "\n";
                         }
                     }
+                    clients_found++;
                 }
             }
             //label_title.Text = "Scanning finished.";
             label_title.Text = locale.locate_complete;
             label_title.Location = CenterPosition();
+            label_clients.Text = locale.locate_clients_found + files.Length + "\n" + locale.locate_clients_added + clients_found;
+            label_clients.Location = CenterPositionX(label_clients);
+            label_clients.Location = new Point(label_clients.Location.X, (label_title.Location.Y + 50));
             //btn_close.Text = "Finish";
             btn_close.Text = locale.installer_finish;
             Main.main.WriteLog = "[Riders Guild installer] finished locate process." + "\n";

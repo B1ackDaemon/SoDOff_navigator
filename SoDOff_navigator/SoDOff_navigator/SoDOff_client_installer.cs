@@ -135,6 +135,12 @@ namespace SoDOff_navigator
             int y = (this.Height / 2) - (label_title.Height * 3);
             return new Point(x, y);
         }
+        public Point CenterPositionX(Label label)
+        {
+            int x = (this.Width / 2) - (label.Width / 2) - 6;
+            int y = label.Location.Y;
+            return new Point(x, y);
+        }
 
         void UpdateUI()
         {
@@ -411,6 +417,8 @@ namespace SoDOff_navigator
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(100, 273);
 
+            int clients_found = 0;
+
             Main.main.WriteLog = "[SoDOff installer] searching for installed SoD clients..." + "\n";
             string[] files = Directory.GetFiles(textBox_path.Text, "DOMain.exe", SearchOption.AllDirectories);
             foreach (string file in files)
@@ -426,6 +434,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 1.6" + "\n";
                         }
                     }
+                    clients_found++;
                 }
                 else if (md5 == "a7648e3bdff49bc6428488a0235487d2")
                 {
@@ -437,6 +446,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 1.13" + "\n";
                         }
                     }
+                    clients_found++;
                 }
                 else if (md5 == "2c2896bef2370463e14b384b22149ab7")
                 {
@@ -448,6 +458,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 2.9" + "\n";
                         }
                     }
+                    clients_found++;
                 }
                 else if (md5 == "1616ccdbd5cdd3aba871edb572fbc1df")
                 {
@@ -459,6 +470,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 3.12" + "\n";
                         }
                     }
+                    clients_found++;
                 }
                 else if (md5 == "b12b8f61fbaa9fae76f22e63d81467db")
                 {
@@ -474,12 +486,16 @@ namespace SoDOff_navigator
                                 Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 3.31" + "\n";
                             }
                         }
+                        clients_found++;
                     }
                 }
             }
             //label_title.Text = "Scanning finished.";
             label_title.Text = locale.locate_complete;
             label_title.Location = CenterPosition();
+            label_clients.Text = locale.locate_clients_found + files.Length + "\n" + locale.locate_clients_added + clients_found;
+            label_clients.Location = CenterPositionX(label_clients);
+            label_clients.Location = new Point(label_clients.Location.X, (label_title.Location.Y + 60));
             //btn_close.Text = "Finish";
             btn_close.Text = locale.installer_finish;
             Main.main.WriteLog = "[SoDOff installer] finished locate process." + "\n";

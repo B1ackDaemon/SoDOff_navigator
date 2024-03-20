@@ -49,6 +49,8 @@
         public string install_complete;
         public string locate_in_progress;
         public string locate_complete;
+        public string locate_clients_found;
+        public string locate_clients_added;
 
         public string mods_author;
         public string mods_category;
@@ -147,6 +149,8 @@
 
                 locate_in_progress = "Идет сканирование...";
                 locate_complete = "Сканирование закончено.";
+                locate_clients_found = "Клиентов найдено: ";
+                locate_clients_added = "Клиентов добавлено: ";
                 installer_finish = "Завершить";
                 installer_cancel = "Отмена";
                 sodoff_version_select = "Какую версию игры запустить";
@@ -247,6 +251,8 @@
 
                 locate_in_progress = "Scanning, please wait...";
                 locate_complete = "Scanning finished.";
+                locate_clients_found = "Clients found: ";
+                locate_clients_added = "Clients added: ";
                 installer_finish = "Finish";
                 installer_cancel = "Cancel";
 

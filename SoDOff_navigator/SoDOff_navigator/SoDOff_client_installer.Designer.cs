@@ -44,6 +44,7 @@
             this.labelDownloaded = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.label_clients = new System.Windows.Forms.Label();
             this.groupBox_client_ver.SuspendLayout();
             this.groupBox_install_path.SuspendLayout();
             this.SuspendLayout();
@@ -199,11 +200,22 @@
             this.progressBar.Size = new System.Drawing.Size(240, 23);
             this.progressBar.TabIndex = 20;
             // 
+            // label_clients
+            // 
+            this.label_clients.AutoSize = true;
+            this.label_clients.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_clients.Location = new System.Drawing.Point(70, 465);
+            this.label_clients.Name = "label_clients";
+            this.label_clients.Size = new System.Drawing.Size(104, 32);
+            this.label_clients.TabIndex = 25;
+            this.label_clients.Text = "Clients found: 1\r\nClients added: 1";
+            // 
             // SoDOff_client_installer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 342);
+            this.Controls.Add(this.label_clients);
             this.Controls.Add(this.labelDownloaded);
             this.Controls.Add(this.labelSpeed);
             this.Controls.Add(this.progressBar);
@@ -245,5 +257,6 @@
         private System.Windows.Forms.Label labelDownloaded;
         private System.Windows.Forms.Label labelSpeed;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label label_clients;
     }
 }
