@@ -27,6 +27,7 @@ namespace SoDOff_navigator
 
             comboBox_language.Items.Add("EN");
             comboBox_language.Items.Add("RU");
+            comboBox_language.Items.Add("DE");
             comboBox_language.SelectedIndex = 0;
 
             checkEnvironment();
@@ -459,6 +460,11 @@ namespace SoDOff_navigator
             else if (comboBox_language.Text == "EN")
             {
                 locale.updateLocale("english");
+                UpdateUI();
+            }
+           else if (comboBox_language.Text == "DE")
+            {
+                locale.updateLocale("german");
                 UpdateUI();
             }
         }
