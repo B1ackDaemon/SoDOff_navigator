@@ -304,6 +304,107 @@
                 error_assets_quality = "Assets quality not specified!";
                 error_pe_path = "Project Edge path not specified!";
             }
+            else if (language == "german")
+            {
+                current_language = "german";
+                main_title = "Hauptmenü";
+                main_play_online = "Online spielen";
+                main_play_offline = "Offline spielen";
+                main_social = "Soziales";
+                main_install_sodoff = "SoDOff installieren";
+                main_install_rg_online = "Riders Guild installieren";
+                main_play_sodoff = "SoDOff spielen";
+                main_play_rg_online = "Riders Guild spielen";
+                main_install_rg_server = "Server installieren (Riders Guild)";
+                main_install_rg_assets = "Assets installieren (Riders Guild)";
+                main_start_rg_server = "Server starten (Riders Guild)";
+                main_play_rg_offline = "Offline spielen (Riders Guild)";
+                main_visit_sodoff_discord = "SoDOff Discord besuchen";
+                main_visit_rg_discord = "Riders Guild Discord besuchen";
+                main_mod_manager = "Mod-Manager";
+                main_about = "SoDOff Navigator - praktischer Installer und Launcher";
+                main_language = "Sprache:";
+                main_play_error_client_not_found = "Kein installierter Spielclient gefunden. Installieren oder lokalisieren Sie eine zuvor installierte Kopie.";
+                main_play_error_server_not_found = "Kein installierter Spielserver gefunden. Installieren oder lokalisieren Sie eine zuvor installierte Kopie.";
+
+                sodoff_installer_title = "Willkommen beim SoDOff-Client-Installer! Bitte wählen Sie das Installationsverzeichnis aus und klicken Sie auf Installieren, um fortzufahren.";
+                rg_online_installer_title = "Willkommen beim Riders Guild-Client-Installer! Bitte wählen Sie das Installationsverzeichnis aus und klicken Sie auf Installieren, um fortzufahren.";
+                rg_server_installer_title = "Willkommen beim Riders Guild-Server-Installer! Bitte wählen Sie das Installationsverzeichnis aus und klicken Sie auf Installieren, um fortzufahren.";
+                rg_assets_installer_title = "Willkommen beim RG-Assets-Installer! Bitte wählen Sie die Download-Methode aus und klicken Sie auf Installieren, um fortzufahren.";
+                installer_install_path = "Installationspfad";
+                installer_path = "Drücken Sie die Schaltfläche 'Auswählen...'";
+                installer_select_path = "Auswählen...";
+                sodoff_installer_client_ver = "Client-Version";
+                sodoff_installer_version_default = "3.31-Version installieren (Standard)";
+                sodoff_installer_version_select = "Ich möchte eine ältere Version installieren";
+                installer_install = "Installieren";
+                installer_preinstalled = "Ich habe es bereits installiert";
+                installer_locate = "Suchen...";
+                installer_close = "Schließen";
+
+                error_install_path = "Es wurde kein Ordner ausgewählt!";
+                error_client_version = "Es wurde keine Client-Version ausgewählt!";
+                error_archive_integrity = "Die Integrität des Archivs konnte nicht überprüft werden! Überprüfen Sie Ihre Internetverbindung.";
+                error_install_failed = "Installation fehlgeschlagen.";
+
+                install_in_progress = "Installation läuft, bitte warten...";
+                install_complete = "Installation abgeschlossen.";
+
+                locate_in_progress = "Suche läuft, bitte warten...";
+                locate_complete = "Suche abgeschlossen.";
+                locate_clients_found = "Gefundene Clients: ";
+                locate_clients_added = "Hinzugefügte Clients: ";
+                installer_finish = "Fertig";
+                installer_cancel = "Abbrechen";
+
+                sodoff_version_select = "Wählen Sie die Client-Version zum Spielen aus";
+
+                mods_author = "Mod-Autor";
+                mods_category = "Kategorie";
+                mod_choose_client = "Wählen Sie den Client zum Installieren aus:";
+                mod_list = "Mod-Liste:";
+                mod_name = "Mod-Name: ";
+                mod_author = "Autor: ";
+                mod_description = "Beschreibung: ";
+                mod_dependency = "Abhängigkeit: ";
+                mod_direct_dl = "Direkter Download: ";
+                mod_download = "Herunterladen";
+                mod_install = "Installieren";
+                mod_download_automatic = "Herunterladen (automatisch)";
+                mod_download_manual = "Herunterladen (manuell)";
+
+                mod_error_select_mod_install = "Sie müssen die Mod aus der Liste auswählen, bevor Sie sie installieren.";
+                mod_error_select_mod_download = "Sie müssen die Mod aus der Liste auswählen, bevor Sie sie herunterladen.";
+                mod_error_select_client = "Sie müssen den Client auswählen, bevor Sie ihn installieren.";
+
+                mod_install_finished = "Installation abgeschlossen.";
+                mod_error_manual_download = "Diese Mod muss vor der Installation manuell heruntergeladen werden.";
+                mod_download_failed = "Herunterladen fehlgeschlagen. Überprüfen Sie Ihre Internetverbindung.";
+                mod_already_downloaded = "Mod-Datei bereits heruntergeladen.";
+                mod_download_complete = "Herunterladen abgeschlossen.";
+
+                mod_author_any = "Beliebig";
+                mod_category_any = "Beliebig";
+                mod_category_cosmetic = "Kosmetisch";
+                mod_category_utility = "Dienstprogramm";
+
+                mod_yes = "ja";
+                mod_no = "nein";
+                mod_none = "keine";
+
+                rg_assets_dl_method = "Wählen Sie die Download-Methode";
+                rg_assets_dl_online = "Vom Riders Guild-Server herunterladen";
+                rg_assets_pe_import = "Assets aus Project Edge importieren";
+                rg_assets_quality = "Wählen Sie die Qualität der Assets aus";
+                rg_assets_quality_low = "Niedrig";
+                rg_assets_quality_mid = "Mittel";
+                rg_assets_quality_high = "Hoch";
+                rg_assets_pe_path = "Project Edge-Pfad";
+                rg_assets_pe_description = "Wählen Sie das Verzeichnis mit Project Edge installiert oder 3.31.0 archive.sga";
+
+                error_assets_quality = "Assets-Qualität nicht angegeben!";
+                error_pe_path = "Project Edge-Pfad nicht angegeben!";
+            }
 
             return stringList;
         }
