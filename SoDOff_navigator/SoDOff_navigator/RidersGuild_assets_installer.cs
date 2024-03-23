@@ -162,10 +162,10 @@ namespace SoDOff_navigator
             //btn_close.Text = "Cancel";
             btn_close.Text = locale.installer_cancel;
             btn_close.Size = new Size(75, 33);
-            btn_close.Location = new Point(100, 323);
+            btn_close.Location = new Point(140, 323);
 
             label_files.Text = "";
-            label_files.Location = new Point(60, 190);
+            label_files.Location = new Point(100, 190);
 
             string client_path = "";
             string[] sga_list = new string[1];
@@ -458,9 +458,9 @@ namespace SoDOff_navigator
 
                     labelDownloaded.Text = "";
                     labelSpeed.Text = "";
-                    progressBar.Location = new Point(21, 210);
-                    labelDownloaded.Location = new Point(18, 236);
-                    labelSpeed.Location = new Point(191, 236);
+                    progressBar.Location = new Point(61, 210);
+                    labelDownloaded.Location = new Point(58, 236);
+                    labelSpeed.Location = new Point(231, 236);
                     // Start downloading the file
                     webClient.DownloadFileAsync(URL, location);
                 }

@@ -124,7 +124,7 @@
             // 
             this.btn_download.Location = new System.Drawing.Point(58, 408);
             this.btn_download.Name = "btn_download";
-            this.btn_download.Size = new System.Drawing.Size(75, 35);
+            this.btn_download.Size = new System.Drawing.Size(85, 35);
             this.btn_download.TabIndex = 8;
             this.btn_download.Text = "Download";
             this.btn_download.UseVisualStyleBackColor = true;
@@ -134,7 +134,7 @@
             // 
             this.btn_install.Location = new System.Drawing.Point(195, 408);
             this.btn_install.Name = "btn_install";
-            this.btn_install.Size = new System.Drawing.Size(75, 35);
+            this.btn_install.Size = new System.Drawing.Size(85, 35);
             this.btn_install.TabIndex = 9;
             this.btn_install.Text = "Install";
             this.btn_install.UseVisualStyleBackColor = true;

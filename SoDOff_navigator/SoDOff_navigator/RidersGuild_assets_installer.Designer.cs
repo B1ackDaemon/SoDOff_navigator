@@ -58,7 +58,7 @@
             this.groupBox_download.Controls.Add(this.radioButton_online);
             this.groupBox_download.Location = new System.Drawing.Point(21, 83);
             this.groupBox_download.Name = "groupBox_download";
-            this.groupBox_download.Size = new System.Drawing.Size(231, 69);
+            this.groupBox_download.Size = new System.Drawing.Size(318, 69);
             this.groupBox_download.TabIndex = 0;
             this.groupBox_download.TabStop = false;
             this.groupBox_download.Text = "Choose download method";
@@ -94,7 +94,7 @@
             this.groupBox_edge.Controls.Add(this.btn_edge_path);
             this.groupBox_edge.Location = new System.Drawing.Point(21, 214);
             this.groupBox_edge.Name = "groupBox_edge";
-            this.groupBox_edge.Size = new System.Drawing.Size(231, 89);
+            this.groupBox_edge.Size = new System.Drawing.Size(318, 89);
             this.groupBox_edge.TabIndex = 1;
             this.groupBox_edge.TabStop = false;
             this.groupBox_edge.Text = "Project Edge path";
@@ -113,13 +113,13 @@
             this.textBox_path.Location = new System.Drawing.Point(17, 54);
             this.textBox_path.Name = "textBox_path";
             this.textBox_path.ReadOnly = true;
-            this.textBox_path.Size = new System.Drawing.Size(117, 20);
+            this.textBox_path.Size = new System.Drawing.Size(210, 20);
             this.textBox_path.TabIndex = 3;
             this.textBox_path.Text = "press \"Select...\" button";
             // 
             // btn_edge_path
             // 
-            this.btn_edge_path.Location = new System.Drawing.Point(140, 51);
+            this.btn_edge_path.Location = new System.Drawing.Point(231, 52);
             this.btn_edge_path.Name = "btn_edge_path";
             this.btn_edge_path.Size = new System.Drawing.Size(75, 23);
             this.btn_edge_path.TabIndex = 4;
@@ -129,7 +129,7 @@
             // 
             // btn_install
             // 
-            this.btn_install.Location = new System.Drawing.Point(90, 319);
+            this.btn_install.Location = new System.Drawing.Point(133, 319);
             this.btn_install.Name = "btn_install";
             this.btn_install.Size = new System.Drawing.Size(75, 35);
             this.btn_install.TabIndex = 2;
@@ -139,7 +139,7 @@
             // 
             // btn_close
             // 
-            this.btn_close.Location = new System.Drawing.Point(188, 377);
+            this.btn_close.Location = new System.Drawing.Point(277, 377);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(75, 23);
             this.btn_close.TabIndex = 3;
@@ -165,7 +165,7 @@
             this.groupBox_quality.Controls.Add(this.radioButton_low);
             this.groupBox_quality.Location = new System.Drawing.Point(21, 158);
             this.groupBox_quality.Name = "groupBox_quality";
-            this.groupBox_quality.Size = new System.Drawing.Size(231, 51);
+            this.groupBox_quality.Size = new System.Drawing.Size(319, 51);
             this.groupBox_quality.TabIndex = 7;
             this.groupBox_quality.TabStop = false;
             this.groupBox_quality.Text = "Choose assets quality";
@@ -245,7 +245,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(274, 412);
+            this.ClientSize = new System.Drawing.Size(364, 412);
             this.Controls.Add(this.label_files);
             this.Controls.Add(this.labelDownloaded);
             this.Controls.Add(this.labelSpeed);

@@ -616,6 +616,7 @@ namespace SoDOff_navigator
             label_mod_author.Text = locale.mods_author;
             label_category.Text = locale.mods_category;
             label_install_path.Text = locale.mod_choose_client;
+            label_install_path.Location = CenterPositionY(label_install_path);
             label_mods_list.Text = locale.mod_list;
             label_mod_name.Text = locale.mod_name;
             label_author.Text = locale.mod_author;
@@ -624,6 +625,21 @@ namespace SoDOff_navigator
             label_direct_dl.Text = locale.mod_direct_dl;
             btn_download.Text = locale.mod_download;
             btn_install.Text = locale.mod_install;
+        }
+
+        public Point CenterPositionY(Label label)
+        {
+            int x = label.Location.X;
+            int y;
+            if (label.Text.Contains("\n") == true)
+            {
+                y = comboBox_client.Height - 16;
+            }
+            else
+            {
+                y = label.Location.Y;
+            }
+            return new Point(x, y);
         }
 
         byte[] ReadFile(string path)

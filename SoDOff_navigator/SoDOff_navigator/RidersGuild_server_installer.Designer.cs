@@ -48,9 +48,9 @@
             // 
             this.groupBox_install_path.Controls.Add(this.textBox_path);
             this.groupBox_install_path.Controls.Add(this.btn_install_path);
-            this.groupBox_install_path.Location = new System.Drawing.Point(26, 89);
+            this.groupBox_install_path.Location = new System.Drawing.Point(21, 89);
             this.groupBox_install_path.Name = "groupBox_install_path";
-            this.groupBox_install_path.Size = new System.Drawing.Size(238, 58);
+            this.groupBox_install_path.Size = new System.Drawing.Size(318, 58);
             this.groupBox_install_path.TabIndex = 16;
             this.groupBox_install_path.TabStop = false;
             this.groupBox_install_path.Text = "Install path";
@@ -60,13 +60,13 @@
             this.textBox_path.Location = new System.Drawing.Point(15, 24);
             this.textBox_path.Name = "textBox_path";
             this.textBox_path.ReadOnly = true;
-            this.textBox_path.Size = new System.Drawing.Size(117, 20);
+            this.textBox_path.Size = new System.Drawing.Size(210, 20);
             this.textBox_path.TabIndex = 0;
             this.textBox_path.Text = "press \"Select...\" button";
             // 
             // btn_install_path
             // 
-            this.btn_install_path.Location = new System.Drawing.Point(138, 21);
+            this.btn_install_path.Location = new System.Drawing.Point(231, 22);
             this.btn_install_path.Name = "btn_install_path";
             this.btn_install_path.Size = new System.Drawing.Size(75, 23);
             this.btn_install_path.TabIndex = 2;
@@ -76,7 +76,7 @@
             // 
             // btn_close
             // 
-            this.btn_close.Location = new System.Drawing.Point(210, 253);
+            this.btn_close.Location = new System.Drawing.Point(277, 253);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(75, 23);
             this.btn_close.TabIndex = 15;
@@ -86,7 +86,7 @@
             // 
             // btn_install
             // 
-            this.btn_install.Location = new System.Drawing.Point(104, 181);
+            this.btn_install.Location = new System.Drawing.Point(133, 181);
             this.btn_install.Name = "btn_install";
             this.btn_install.Size = new System.Drawing.Size(75, 33);
             this.btn_install.TabIndex = 14;
@@ -164,7 +164,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 292);
+            this.ClientSize = new System.Drawing.Size(364, 292);
             this.Controls.Add(this.label_clients);
             this.Controls.Add(this.labelDownloaded);
             this.Controls.Add(this.labelSpeed);

@@ -321,16 +321,16 @@
                 main_play_rg_offline = "Offline spielen (Riders Guild)";
                 main_visit_sodoff_discord = "SoDOff Discord besuchen";
                 main_visit_rg_discord = "Riders Guild Discord besuchen";
-                main_mod_manager = "Mod-Manager";
+                main_mod_manager = "Mod Manager";
                 main_about = "SoDOff Navigator - praktischer Installer und Launcher";
                 main_language = "Sprache:";
-                main_play_error_client_not_found = "Kein installierter Spielclient gefunden. Installieren oder lokalisieren Sie eine zuvor installierte Kopie.";
-                main_play_error_server_not_found = "Kein installierter Spielserver gefunden. Installieren oder lokalisieren Sie eine zuvor installierte Kopie.";
+                main_play_error_client_not_found = "Kein installierter Spielclient gefunden.\nInstallieren oder lokalisieren Sie eine zuvor installierte Kopie.";
+                main_play_error_server_not_found = "Kein installierter Spielserver gefunden.\nInstallieren oder lokalisieren Sie eine zuvor installierte Kopie.";
 
-                sodoff_installer_title = "Willkommen beim SoDOff-Client-Installer! Bitte wählen Sie das Installationsverzeichnis aus und klicken Sie auf Installieren, um fortzufahren.";
-                rg_online_installer_title = "Willkommen beim Riders Guild-Client-Installer! Bitte wählen Sie das Installationsverzeichnis aus und klicken Sie auf Installieren, um fortzufahren.";
-                rg_server_installer_title = "Willkommen beim Riders Guild-Server-Installer! Bitte wählen Sie das Installationsverzeichnis aus und klicken Sie auf Installieren, um fortzufahren.";
-                rg_assets_installer_title = "Willkommen beim RG-Assets-Installer! Bitte wählen Sie die Download-Methode aus und klicken Sie auf Installieren, um fortzufahren.";
+                sodoff_installer_title = "Willkommen beim SoDOff-Client-Installer!\nBitte wählen Sie das Installationsverzeichnis aus\nund klicken Sie auf Installieren, um fortzufahren.";
+                rg_online_installer_title = "Willkommen beim Riders Guild-Client-Installer!\nBitte wählen Sie das Installationsverzeichnis aus\nund klicken Sie auf Installieren, um fortzufahren.";
+                rg_server_installer_title = "Willkommen beim Riders Guild-Server-Installer!\nBitte wählen Sie das Installationsverzeichnis aus\nund klicken Sie auf Installieren, um fortzufahren.";
+                rg_assets_installer_title = "Willkommen beim RG-Assets-Installer!\nBitte wählen Sie die Download-Methode aus\nund klicken Sie auf Installieren, um fortzufahren.";
                 installer_install_path = "Installationspfad";
                 installer_path = "Drücken Sie die Schaltfläche 'Auswählen...'";
                 installer_select_path = "Auswählen...";
@@ -344,7 +344,7 @@
 
                 error_install_path = "Es wurde kein Ordner ausgewählt!";
                 error_client_version = "Es wurde keine Client-Version ausgewählt!";
-                error_archive_integrity = "Die Integrität des Archivs konnte nicht überprüft werden! Überprüfen Sie Ihre Internetverbindung.";
+                error_archive_integrity = "Die Integrität des Archivs konnte nicht überprüft werden!\nÜberprüfen Sie Ihre Internetverbindung.";
                 error_install_failed = "Installation fehlgeschlagen.";
 
                 install_in_progress = "Installation läuft, bitte warten...";
@@ -361,7 +361,7 @@
 
                 mods_author = "Mod-Autor";
                 mods_category = "Kategorie";
-                mod_choose_client = "Wählen Sie den Client zum Installieren aus:";
+                mod_choose_client = "Wählen Sie den Client\nzum Installieren aus:";
                 mod_list = "Mod-Liste:";
                 mod_name = "Mod-Name: ";
                 mod_author = "Autor: ";
@@ -400,7 +400,7 @@
                 rg_assets_quality_mid = "Mittel";
                 rg_assets_quality_high = "Hoch";
                 rg_assets_pe_path = "Project Edge-Pfad";
-                rg_assets_pe_description = "Wählen Sie das Verzeichnis mit Project Edge installiert oder 3.31.0 archive.sga";
+                rg_assets_pe_description = "Wählen Sie das Verzeichnis mit Project Edge\ninstalliert oder 3.31.0 archive.sga";
 
                 error_assets_quality = "Assets-Qualität nicht angegeben!";
                 error_pe_path = "Project Edge-Pfad nicht angegeben!";

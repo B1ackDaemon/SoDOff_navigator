@@ -54,13 +54,13 @@
             this.textBox_path.Location = new System.Drawing.Point(15, 24);
             this.textBox_path.Name = "textBox_path";
             this.textBox_path.ReadOnly = true;
-            this.textBox_path.Size = new System.Drawing.Size(117, 20);
+            this.textBox_path.Size = new System.Drawing.Size(210, 20);
             this.textBox_path.TabIndex = 0;
             this.textBox_path.Text = "press \"Select...\" button";
             // 
             // btn_install_path
             // 
-            this.btn_install_path.Location = new System.Drawing.Point(138, 21);
+            this.btn_install_path.Location = new System.Drawing.Point(231, 22);
             this.btn_install_path.Name = "btn_install_path";
             this.btn_install_path.Size = new System.Drawing.Size(75, 23);
             this.btn_install_path.TabIndex = 2;
@@ -70,7 +70,7 @@
             // 
             // btn_install
             // 
-            this.btn_install.Location = new System.Drawing.Point(99, 246);
+            this.btn_install.Location = new System.Drawing.Point(133, 246);
             this.btn_install.Name = "btn_install";
             this.btn_install.Size = new System.Drawing.Size(75, 33);
             this.btn_install.TabIndex = 3;
@@ -80,7 +80,7 @@
             // 
             // btn_close
             // 
-            this.btn_close.Location = new System.Drawing.Point(200, 306);
+            this.btn_close.Location = new System.Drawing.Point(277, 306);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(75, 23);
             this.btn_close.TabIndex = 4;
@@ -130,7 +130,7 @@
             this.groupBox_client_ver.Controls.Add(this.radioButton_version_select);
             this.groupBox_client_ver.Location = new System.Drawing.Point(21, 153);
             this.groupBox_client_ver.Name = "groupBox_client_ver";
-            this.groupBox_client_ver.Size = new System.Drawing.Size(238, 75);
+            this.groupBox_client_ver.Size = new System.Drawing.Size(318, 75);
             this.groupBox_client_ver.TabIndex = 8;
             this.groupBox_client_ver.TabStop = false;
             this.groupBox_client_ver.Text = "Client version";
@@ -139,7 +139,7 @@
             // 
             this.comboBox_version.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_version.FormattingEnabled = true;
-            this.comboBox_version.Location = new System.Drawing.Point(181, 44);
+            this.comboBox_version.Location = new System.Drawing.Point(261, 40);
             this.comboBox_version.Name = "comboBox_version";
             this.comboBox_version.Size = new System.Drawing.Size(45, 21);
             this.comboBox_version.TabIndex = 8;
@@ -151,7 +151,7 @@
             this.groupBox_install_path.Controls.Add(this.btn_install_path);
             this.groupBox_install_path.Location = new System.Drawing.Point(21, 89);
             this.groupBox_install_path.Name = "groupBox_install_path";
-            this.groupBox_install_path.Size = new System.Drawing.Size(238, 58);
+            this.groupBox_install_path.Size = new System.Drawing.Size(318, 58);
             this.groupBox_install_path.TabIndex = 9;
             this.groupBox_install_path.TabStop = false;
             this.groupBox_install_path.Text = "Install path";
@@ -214,7 +214,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 342);
+            this.ClientSize = new System.Drawing.Size(364, 342);
             this.Controls.Add(this.label_clients);
             this.Controls.Add(this.labelDownloaded);
             this.Controls.Add(this.labelSpeed);
