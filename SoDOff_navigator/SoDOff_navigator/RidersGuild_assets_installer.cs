@@ -128,6 +128,12 @@ namespace SoDOff_navigator
             int y = (this.Height / 2) - (label_title.Height * 3);
             return new Point(x, y);
         }
+        public Point CenterPositionX(Label label)
+        {
+            int x = (this.Width / 2) - (label.Width / 2) - 6;
+            int y = label.Location.Y;
+            return new Point(x, y);
+        }
 
         void UpdateUI()
         {
@@ -145,6 +151,7 @@ namespace SoDOff_navigator
             btn_edge_path.Text = locale.installer_select_path;
             btn_install.Text = locale.installer_install;
             btn_close.Text = locale.installer_close;
+            label_title.Location = CenterPositionX(label_title);
         }
 
         public void DownloadAndInstall()
