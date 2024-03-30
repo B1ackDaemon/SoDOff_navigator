@@ -80,7 +80,10 @@ namespace SoDOff_navigator
                     string ridersguild_offline = o.ToString();
                     if (ridersguild_offline != "not installed")
                     {
-                        comboBox_client.Items.Add("Riders Guild 3.31 (offline)");
+                        if (File.Exists(ridersguild_offline + @"\DOMain.exe") == true)
+                        {
+                            comboBox_client.Items.Add("Riders Guild 3.31 (offline)");
+                        }
                     }
                 }
             }

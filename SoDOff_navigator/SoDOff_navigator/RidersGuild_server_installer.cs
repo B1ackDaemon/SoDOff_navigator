@@ -155,13 +155,13 @@ namespace SoDOff_navigator
 
             if (platform == "windows")
             {
-                archive_name = @"\ridersguild-offline-3.31-windows.zip";
-                original_md5 = "e533624151864100b302222d0ba74703";
+                archive_name = @"\RG-offline-Windows.zip";
+                original_md5 = "804df0458b2a6fba109515711c6872c1";
             }
             else if (platform == "linux")
             {
-                archive_name = @"\ridersguild-offline-3.31-linux.zip";
-                original_md5 = "b84b97d030971f11e758281a3931ef67";
+                archive_name = @"\RG-offline-Linux.zip";
+                original_md5 = "e917bd1ec5b25f516c578106920d028b";
             }
             if (File.Exists(textBox_path.Text + archive_name) == true)
             {
@@ -174,11 +174,11 @@ namespace SoDOff_navigator
 
                 if (platform == "windows")
                 {
-                    DownloadFile("https://ridersguild.org/ridersguild-offline-3.31-windows.zip", textBox_path.Text + archive_name);
+                    DownloadFile("https://ridersguild.org/Tools/RG-offline-Windows.zip", textBox_path.Text + archive_name);
                 }
                 else if (platform == "linux")
                 {
-                    DownloadFile("https://ridersguild.org/ridersguild-offline-3.31-linux.zip", textBox_path.Text + archive_name);
+                    DownloadFile("https://ridersguild.org/Tools/RG-offline-Linux.zip", textBox_path.Text + archive_name);
                 }
 
                 while (DownloadCompleted == false)
@@ -246,13 +246,13 @@ namespace SoDOff_navigator
                     {
                         if (platform == "windows")
                         {
-                            key.SetValue("RidersGuild_offline", textBox_path.Text + @"\ridersguild-offline-3.31-windows");
+                            key.SetValue("RidersGuild_offline", textBox_path.Text + @"\RG-offline-Windows");
                         }
                         else if (platform == "linux")
                         {
-                            key.SetValue("RidersGuild_offline", textBox_path.Text + @"\ridersguild-offline-3.31-linux");
+                            key.SetValue("RidersGuild_offline", textBox_path.Text + @"\RG-offline-Linux");
                         }
-                        Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (offline)" + "\n";
+                        Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for RG (offline)" + "\n";
                     }
                 }
 
@@ -281,9 +281,12 @@ namespace SoDOff_navigator
             btn_close.Location = new Point(140, 233);
 
             int clients_found = 0;
+            int clients_added = 0;
+            string[] files;
 
             Main.main.WriteLog = "[Riders Guild installer] searching for installed SoD clients..." + "\n";
-            string[] files = Directory.GetFiles(textBox_path.Text, "DOMain.exe", SearchOption.AllDirectories);
+            //legacy 3.31 offline server
+            files = Directory.GetFiles(textBox_path.Text, "DOMain.exe", SearchOption.AllDirectories);
             foreach (string file in files)
             {
                 string md5 = HashingCompute.GetMD5HashFromFile(file);
@@ -299,13 +302,35 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (offline)" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
             }
+            clients_found += files.Length;
+            //new offline server
+            files = Directory.GetFiles(textBox_path.Text, "ClientPatcher.py", SearchOption.AllDirectories);
+            foreach (string file in files)
+            {
+                //string md5 = HashingCompute.GetMD5HashFromFile(file);
+                string path = file.Replace("ClientPatcher.py", "");
+                if (File.Exists(path + @"\sodoff.exe") == true
+                    || File.Exists(path + @"\sodoff") == true)
+                {
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator", true)) // Must dispose key or use "using" keyword
+                    {
+                        if (key != null)  // Must check for null key
+                        {
+                            key.SetValue("RidersGuild_offline", path.Replace("ClientPatcher.py", ""));
+                            Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for RG (offline)" + "\n";
+                        }
+                    }
+                    clients_added++;
+                }
+            }
+            clients_found += files.Length;
             //label_title.Text = "Scanning finished.";
             label_title.Text = locale.locate_complete;
             label_title.Location = CenterPosition();
-            label_clients.Text = locale.locate_clients_found + files.Length + "\n" + locale.locate_clients_added + clients_found;
+            label_clients.Text = locale.locate_clients_found + clients_found + "\n" + locale.locate_clients_added + clients_added;
             label_clients.Location = CenterPositionX(label_clients);
             label_clients.Location = new Point(label_clients.Location.X, (label_title.Location.Y + 50));
             //btn_close.Text = "Finish";

@@ -186,7 +186,7 @@ namespace SoDOff_navigator
             if (version == "3.19")
             {
                 archive_name = @"\ridersguild_SoD_3.19.zip";
-                original_md5 = "7a0d57a38dfc04c752d404234af6473c";
+                original_md5 = "b51f91ce5bb28d6b1f1786d96ccc3569";
                 if (File.Exists(textBox_path.Text + archive_name) == true)
                 {
                     Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
@@ -232,7 +232,7 @@ namespace SoDOff_navigator
             else if (version == "3.26")
             {
                 archive_name = @"\ridersguild_SoD_3.26.zip";
-                original_md5 = "d44313a38efce4448500dfaa5a6b1727";
+                original_md5 = "5bdd0dd40e78f25b51bf32e2ef669404";
                 if (File.Exists(textBox_path.Text + archive_name) == true)
                 {
                     Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
@@ -255,7 +255,7 @@ namespace SoDOff_navigator
             else if (version == "3.31")
             {
                 archive_name = @"\ridersguild_SoD_3.31.zip";
-                original_md5 = "fa1628bdf364f8424e5d9fb331a62966";
+                original_md5 = "8f8bde36548e96d26ae63f3803107cbb";
                 if (File.Exists(textBox_path.Text + archive_name) == true)
                 {
                     Main.main.WriteLog = "[Riders Guild installer] checking existing zip archive checksum..." + "\n";
@@ -378,7 +378,7 @@ namespace SoDOff_navigator
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(140, 273);
 
-            int clients_found = 0;
+            int clients_added = 0;
 
             Main.main.WriteLog = "[Riders Guild installer] searching for installed SoD clients..." + "\n";
             string[] files = Directory.GetFiles(textBox_path.Text, "DOMain.exe", SearchOption.AllDirectories);
@@ -396,7 +396,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.19" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
                 else if (md5 == "e03ed19a1d1fb4a12054a1774edb50a6")
                 {
@@ -408,7 +408,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.21" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
                 else if (md5 == "98b2bbb5261fb4dab1d8609efde879e3")
                 {
@@ -420,7 +420,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.26" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
                 else if (md5 == "b12b8f61fbaa9fae76f22e63d81467db" && File.Exists(path + @"\SoDServer.exe") == false)
                 {
@@ -436,14 +436,14 @@ namespace SoDOff_navigator
                                 Main.main.WriteLog = "[Riders Guild installer] writing installed client path to registry for version: 3.31 (online)" + "\n";
                             }
                         }
-                        clients_found++;
+                        clients_added++;
                     }
                 }
             }
             //label_title.Text = "Scanning finished.";
             label_title.Text = locale.locate_complete;
             label_title.Location = CenterPosition();
-            label_clients.Text = locale.locate_clients_found + files.Length + "\n" + locale.locate_clients_added + clients_found;
+            label_clients.Text = locale.locate_clients_found + files.Length + "\n" + locale.locate_clients_added + clients_added;
             label_clients.Location = CenterPositionX(label_clients);
             label_clients.Location = new Point(label_clients.Location.X, (label_title.Location.Y + 60));
             //btn_close.Text = "Finish";

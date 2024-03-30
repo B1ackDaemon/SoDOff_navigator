@@ -198,7 +198,7 @@ namespace SoDOff_navigator
             if (version == "1.6")
             {
                 archive_name = @"\SoD_1.6.zip";
-                original_md5 = "4de76f805a74a93e97851c41c5d118fc";
+                original_md5 = "636d3e056b8a141096abc5b261732e41";
                 if (File.Exists(textBox_path.Text + archive_name) == true)
                 {
                     Main.main.WriteLog = "[SoDOff installer] checking existing zip archive checksum..." + "\n";
@@ -221,7 +221,7 @@ namespace SoDOff_navigator
             else if (version == "1.13")
             {
                 archive_name = @"\SoD_1.13.zip";
-                original_md5 = "7de1f0c5045c80e08229646d052b653f";
+                original_md5 = "a46d92a0f9168c7976d6a3adc8486082";
                 if (File.Exists(textBox_path.Text + archive_name) == true)
                 {
                     Main.main.WriteLog = "[SoDOff installer] checking existing zip archive checksum..." + "\n";
@@ -267,7 +267,7 @@ namespace SoDOff_navigator
             else if (version == "3.12")
             {
                 archive_name = @"\SoD_3.12.zip";
-                original_md5 = "3d5075de593f49a78ed397bca47dbb0f";
+                original_md5 = "769baa9594af71141b58560872629bf1";
                 if (File.Exists(textBox_path.Text + archive_name) == true)
                 {
                     Main.main.WriteLog = "[SoDOff installer] checking existing zip archive checksum..." + "\n";
@@ -418,7 +418,7 @@ namespace SoDOff_navigator
             btn_close.Size = new Size(75, 33);
             btn_close.Location = new Point(140, 273);
 
-            int clients_found = 0;
+            int clients_added = 0;
 
             Main.main.WriteLog = "[SoDOff installer] searching for installed SoD clients..." + "\n";
             string[] files = Directory.GetFiles(textBox_path.Text, "DOMain.exe", SearchOption.AllDirectories);
@@ -435,7 +435,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 1.6" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
                 else if (md5 == "a7648e3bdff49bc6428488a0235487d2")
                 {
@@ -447,7 +447,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 1.13" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
                 else if (md5 == "2c2896bef2370463e14b384b22149ab7")
                 {
@@ -459,7 +459,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 2.9" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
                 else if (md5 == "1616ccdbd5cdd3aba871edb572fbc1df")
                 {
@@ -471,7 +471,7 @@ namespace SoDOff_navigator
                             Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 3.12" + "\n";
                         }
                     }
-                    clients_found++;
+                    clients_added++;
                 }
                 else if (md5 == "b12b8f61fbaa9fae76f22e63d81467db")
                 {
@@ -487,14 +487,14 @@ namespace SoDOff_navigator
                                 Main.main.WriteLog = "[SoDOff installer] writing installed client path to registry for version: 3.31" + "\n";
                             }
                         }
-                        clients_found++;
+                        clients_added++;
                     }
                 }
             }
             //label_title.Text = "Scanning finished.";
             label_title.Text = locale.locate_complete;
             label_title.Location = CenterPosition();
-            label_clients.Text = locale.locate_clients_found + files.Length + "\n" + locale.locate_clients_added + clients_found;
+            label_clients.Text = locale.locate_clients_found + files.Length + "\n" + locale.locate_clients_added + clients_added;
             label_clients.Location = CenterPositionX(label_clients);
             label_clients.Location = new Point(label_clients.Location.X, (label_title.Location.Y + 60));
             //btn_close.Text = "Finish";

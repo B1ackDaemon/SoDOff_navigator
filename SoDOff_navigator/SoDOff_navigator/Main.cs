@@ -241,6 +241,7 @@ namespace SoDOff_navigator
             string path_326 = "";
             string path_331 = "";
             int versions_installed = 0;
+            string md5 = "";
 
             richTextBox_log.Text += "[Play Riders Guild] Reading registry keys." + "\n";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator");
@@ -290,13 +291,19 @@ namespace SoDOff_navigator
             {
                 richTextBox_log.Text += "[Play Riders Guild] Multiple versions detected!" + "\n";
 
-                RidersGuild_version_selector select_dialog = new RidersGuild_version_selector();
+                RidersGuild_version_selector select_dialog = new RidersGuild_version_selector("online");
                 select_dialog.Show();
             }
             else if (versions_installed == 1)
             {
                 if (path_319 != "not installed")
                 {
+                    md5 = HashingCompute.GetMD5HashFromFile(path_319 + @"\DOMain_Data\resources.assets");
+                    if (md5 != "dbeac93ca6a74a3e136d57c1658e9579")
+                    {
+                        ClientPatcher.PatchClient(path_319, "3.19", "online");
+                    }
+
                     richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.19 (online)..." + "\n";
                     Process clientProcess = new Process();
                     clientProcess.StartInfo.FileName = path_319 + @"\DOMain.exe";
@@ -304,6 +311,12 @@ namespace SoDOff_navigator
                 }
                 else if (path_321 != "not installed")
                 {
+                    md5 = HashingCompute.GetMD5HashFromFile(path_321 + @"\DOMain_Data\resources.assets");
+                    if (md5 != "3e408ff83c732cc63658a26a8d9ddf10")
+                    {
+                        ClientPatcher.PatchClient(path_321, "3.21", "online");
+                    }
+
                     richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.21 (online)..." + "\n";
                     Process clientProcess = new Process();
                     clientProcess.StartInfo.FileName = path_321 + @"\DOMain.exe";
@@ -311,6 +324,12 @@ namespace SoDOff_navigator
                 }
                 else if (path_326 != "not installed")
                 {
+                    md5 = HashingCompute.GetMD5HashFromFile(path_326 + @"\DOMain_Data\resources.assets");
+                    if (md5 != "af86180040420fcf2c64e613024db81f")
+                    {
+                        ClientPatcher.PatchClient(path_326, "3.26", "online");
+                    }
+
                     richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.26 (online)..." + "\n";
                     Process clientProcess = new Process();
                     clientProcess.StartInfo.FileName = path_326 + @"\DOMain.exe";
@@ -318,6 +337,12 @@ namespace SoDOff_navigator
                 }
                 else if (path_331 != "not installed")
                 {
+                    md5 = HashingCompute.GetMD5HashFromFile(path_331 + @"\DOMain_Data\resources.assets");
+                    if (md5 != "83b1272b4c5f5497a02a8c204eba3326")
+                    {
+                        ClientPatcher.PatchClient(path_331, "3.31", "online");
+                    }
+
                     richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.31 (online)..." + "\n";
                     Process clientProcess = new Process();
                     clientProcess.StartInfo.FileName = path_331 + @"\DOMain.exe";
@@ -364,6 +389,14 @@ namespace SoDOff_navigator
                 {
                     clientProcess.StartInfo.FileName = path + @"\SoDServer";
                 }
+                else if (File.Exists(path + @"\sodoff.exe") == true)
+                {
+                    clientProcess.StartInfo.FileName = path + @"\sodoff.exe";
+                }
+                else if (File.Exists(path + @"\sodoff") == true)
+                {
+                    clientProcess.StartInfo.FileName = path + @"\sodoff";
+                }
                 clientProcess.StartInfo.WorkingDirectory = path;
                 clientProcess.Start();
             }
@@ -391,10 +424,135 @@ namespace SoDOff_navigator
 
             if (path != "not installed")
             {
-                richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.31 (offline)..." + "\n";
-                Process clientProcess = new Process();
-                clientProcess.StartInfo.FileName = path + @"\DOMain.exe";
-                clientProcess.Start();
+                //legacy 3.31 offline server
+                if (File.Exists(path + @"\DOMain.exe") == true)
+                {
+                    richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.31 (offline)..." + "\n";
+                    Process clientProcess = new Process();
+                    clientProcess.StartInfo.FileName = path + @"\DOMain.exe";
+                    clientProcess.Start();
+                }
+                //new offline server
+                else if (File.Exists(path + @"\DOMain.exe") == false)
+                {
+                    string path_319 = "";
+                    string path_321 = "";
+                    string path_326 = "";
+                    string path_331 = "";
+                    int versions_installed = 0;
+                    string md5 = "";
+
+                    richTextBox_log.Text += "[Play Riders Guild] Reading registry keys." + "\n";
+                    key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\SoDOffNavigator");
+                    if (key != null)
+                    {
+                        Object o = key.GetValue("RidersGuild_online_319");
+                        if (o != null)
+                        {
+                            path_319 = o.ToString();
+                        }
+                        o = key.GetValue("RidersGuild_online_321");
+                        if (o != null)
+                        {
+                            path_321 = o.ToString();
+                        }
+                        o = key.GetValue("RidersGuild_online_326");
+                        if (o != null)
+                        {
+                            path_326 = o.ToString();
+                        }
+                        o = key.GetValue("RidersGuild_online");
+                        if (o != null)
+                        {
+                            path_331 = o.ToString();
+                        }
+                    }
+                    key.Close();
+
+                    if (path_319 != "not installed")
+                    {
+                        versions_installed++;
+                    }
+                    if (path_321 != "not installed")
+                    {
+                        versions_installed++;
+                    }
+                    if (path_326 != "not installed")
+                    {
+                        versions_installed++;
+                    }
+                    if (path_331 != "not installed")
+                    {
+                        versions_installed++;
+                    }
+
+                    if (versions_installed > 1)
+                    {
+                        richTextBox_log.Text += "[Play Riders Guild] Multiple versions detected!" + "\n";
+
+                        RidersGuild_version_selector select_dialog = new RidersGuild_version_selector("offline");
+                        select_dialog.Show();
+                    }
+                    else if (versions_installed == 1)
+                    {
+                        if (path_319 != "not installed")
+                        {
+                            md5 = HashingCompute.GetMD5HashFromFile(path_319 + @"\DOMain_Data\resources.assets");
+                            if (md5 != "3bf6fb34efa8ba3a5bedbe3b4b4641d5")
+                            {
+                                ClientPatcher.PatchClient(path_319, "3.19", "offline");
+                            }
+
+                            richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.19 (offline)..." + "\n";
+                            Process clientProcess = new Process();
+                            clientProcess.StartInfo.FileName = path_319 + @"\DOMain.exe";
+                            clientProcess.Start();
+                        }
+                        else if (path_321 != "not installed")
+                        {
+                            md5 = HashingCompute.GetMD5HashFromFile(path_321 + @"\DOMain_Data\resources.assets");
+                            if (md5 != "71467a9d220435669b713e3c03a5076c")
+                            {
+                                ClientPatcher.PatchClient(path_321, "3.21", "offline");
+                            }
+
+                            richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.21 (offline)..." + "\n";
+                            Process clientProcess = new Process();
+                            clientProcess.StartInfo.FileName = path_321 + @"\DOMain.exe";
+                            clientProcess.Start();
+                        }
+                        else if (path_326 != "not installed")
+                        {
+                            md5 = HashingCompute.GetMD5HashFromFile(path_326 + @"\DOMain_Data\resources.assets");
+                            if (md5 != "f179ccd882ee22e6d6b4005df9b81268")
+                            {
+                                ClientPatcher.PatchClient(path_326, "3.26", "offline");
+                            }
+
+                            richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.26 (offline)..." + "\n";
+                            Process clientProcess = new Process();
+                            clientProcess.StartInfo.FileName = path_326 + @"\DOMain.exe";
+                            clientProcess.Start();
+                        }
+                        else if (path_331 != "not installed")
+                        {
+                            md5 = HashingCompute.GetMD5HashFromFile(path_331 + @"\DOMain_Data\resources.assets");
+                            if (md5 != "9cb7367af109984591568fe9165b75a1")
+                            {
+                                ClientPatcher.PatchClient(path_331, "3.31", "offline");
+                            }
+
+                            richTextBox_log.Text += "[Play Riders Guild] Launching version: 3.31 (offline)..." + "\n";
+                            Process clientProcess = new Process();
+                            clientProcess.StartInfo.FileName = path_331 + @"\DOMain.exe";
+                            clientProcess.Start();
+                        }
+                    }
+                    else if (versions_installed == 0)
+                    {
+                        MessageBox.Show(locale.main_play_error_client_not_found, "Play Riders Guild", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             else if (path == "not installed")
             {

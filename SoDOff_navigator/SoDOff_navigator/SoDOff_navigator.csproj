@@ -57,6 +57,7 @@
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="Checksum.cs" />
+    <Compile Include="ClientPatcher.cs" />
     <Compile Include="Locale.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

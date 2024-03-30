@@ -47,9 +47,12 @@
             this.labelSpeed = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.label_files = new System.Windows.Forms.Label();
+            this.comboBox_version = new System.Windows.Forms.ComboBox();
+            this.groupBox_client_ver = new System.Windows.Forms.GroupBox();
             this.groupBox_download.SuspendLayout();
             this.groupBox_edge.SuspendLayout();
             this.groupBox_quality.SuspendLayout();
+            this.groupBox_client_ver.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox_download
@@ -58,7 +61,7 @@
             this.groupBox_download.Controls.Add(this.radioButton_online);
             this.groupBox_download.Location = new System.Drawing.Point(21, 83);
             this.groupBox_download.Name = "groupBox_download";
-            this.groupBox_download.Size = new System.Drawing.Size(318, 69);
+            this.groupBox_download.Size = new System.Drawing.Size(227, 69);
             this.groupBox_download.TabIndex = 0;
             this.groupBox_download.TabStop = false;
             this.groupBox_download.Text = "Choose download method";
@@ -94,7 +97,7 @@
             this.groupBox_edge.Controls.Add(this.btn_edge_path);
             this.groupBox_edge.Location = new System.Drawing.Point(21, 214);
             this.groupBox_edge.Name = "groupBox_edge";
-            this.groupBox_edge.Size = new System.Drawing.Size(318, 89);
+            this.groupBox_edge.Size = new System.Drawing.Size(320, 89);
             this.groupBox_edge.TabIndex = 1;
             this.groupBox_edge.TabStop = false;
             this.groupBox_edge.Text = "Project Edge path";
@@ -165,7 +168,7 @@
             this.groupBox_quality.Controls.Add(this.radioButton_low);
             this.groupBox_quality.Location = new System.Drawing.Point(21, 158);
             this.groupBox_quality.Name = "groupBox_quality";
-            this.groupBox_quality.Size = new System.Drawing.Size(319, 51);
+            this.groupBox_quality.Size = new System.Drawing.Size(320, 51);
             this.groupBox_quality.TabIndex = 7;
             this.groupBox_quality.TabStop = false;
             this.groupBox_quality.Text = "Choose assets quality";
@@ -241,11 +244,32 @@
             this.label_files.TabIndex = 26;
             this.label_files.Text = "Files: 10000 / 11000";
             // 
+            // comboBox_version
+            // 
+            this.comboBox_version.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_version.FormattingEnabled = true;
+            this.comboBox_version.Location = new System.Drawing.Point(19, 27);
+            this.comboBox_version.Name = "comboBox_version";
+            this.comboBox_version.Size = new System.Drawing.Size(45, 21);
+            this.comboBox_version.TabIndex = 27;
+            this.comboBox_version.SelectedIndexChanged += new System.EventHandler(this.comboBox_version_SelectedIndexChanged);
+            // 
+            // groupBox_client_ver
+            // 
+            this.groupBox_client_ver.Controls.Add(this.comboBox_version);
+            this.groupBox_client_ver.Location = new System.Drawing.Point(250, 83);
+            this.groupBox_client_ver.Name = "groupBox_client_ver";
+            this.groupBox_client_ver.Size = new System.Drawing.Size(91, 69);
+            this.groupBox_client_ver.TabIndex = 29;
+            this.groupBox_client_ver.TabStop = false;
+            this.groupBox_client_ver.Text = "Client version";
+            // 
             // RidersGuild_assets_installer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 412);
+            this.Controls.Add(this.groupBox_client_ver);
             this.Controls.Add(this.label_files);
             this.Controls.Add(this.labelDownloaded);
             this.Controls.Add(this.labelSpeed);
@@ -267,6 +291,7 @@
             this.groupBox_edge.PerformLayout();
             this.groupBox_quality.ResumeLayout(false);
             this.groupBox_quality.PerformLayout();
+            this.groupBox_client_ver.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,5 +317,7 @@
         private System.Windows.Forms.Label labelSpeed;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label label_files;
+        private System.Windows.Forms.ComboBox comboBox_version;
+        private System.Windows.Forms.GroupBox groupBox_client_ver;
     }
 }

@@ -31,6 +31,12 @@ namespace SoDOff_navigator
 
             Main.main.WriteLog = "[Riders Guild installer] window opened." + "\n";
 
+            comboBox_version.Items.Add("3.19");
+            comboBox_version.Items.Add("3.21");
+            comboBox_version.Items.Add("3.26");
+            comboBox_version.Items.Add("3.31");
+            comboBox_version.SelectedIndex = 3;
+
             UpdateUI();
         }
 
@@ -152,6 +158,7 @@ namespace SoDOff_navigator
             btn_install.Text = locale.installer_install;
             btn_close.Text = locale.installer_close;
             label_title.Location = CenterPositionX(label_title);
+            groupBox_client_ver.Text = locale.sodoff_installer_client_ver;
         }
 
         public void DownloadAndInstall()
@@ -165,6 +172,7 @@ namespace SoDOff_navigator
             groupBox_quality.Visible = false;
             groupBox_edge.Visible = false;
             btn_install.Visible = false;
+            groupBox_client_ver.Visible = false;
 
             //btn_close.Text = "Cancel";
             btn_close.Text = locale.installer_cancel;
@@ -193,57 +201,93 @@ namespace SoDOff_navigator
             CreateDirs(client_path);
             if (assets_quality == "Low")
             {
-                if (radioButton_edge.Checked == true)
+                if (comboBox_version.Text == "3.31")
                 {
-                    if (File.Exists("pe_to_rg_331_low.txt") == false)
+                    if (radioButton_edge.Checked == true)
+                    {
+                        if (File.Exists("pe_to_rg_331_low.txt") == false)
+                        {
+                            WebClient Client = new WebClient();
+                            Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_low.txt", "pe_to_rg_331_low.txt");
+                        }
+                        sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_low.txt");
+                    }
+                    if (File.Exists("rg_331_low.txt") == false)
                     {
                         WebClient Client = new WebClient();
-                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_low.txt", "pe_to_rg_331_low.txt");
+                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_low.txt", "rg_331_low.txt");
                     }
-                    sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_low.txt");
+                    rg_list = System.IO.File.ReadAllLines("rg_331_low.txt");
                 }
-                if (File.Exists("rg_331_low.txt") == false)
-                {
-                    WebClient Client = new WebClient();
-                    Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_low.txt", "rg_331_low.txt");
-                }
-                rg_list = System.IO.File.ReadAllLines("rg_331_low.txt");
             }
             else if (assets_quality == "Mid")
             {
-                if (radioButton_edge.Checked == true)
+                if (comboBox_version.Text == "3.31")
                 {
-                    if (File.Exists("pe_to_rg_331_mid.txt") == false)
+                    if (radioButton_edge.Checked == true)
+                    {
+                        if (File.Exists("pe_to_rg_331_mid.txt") == false)
+                        {
+                            WebClient Client = new WebClient();
+                            Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_mid.txt", "pe_to_rg_331_mid.txt");
+                        }
+                        sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_mid.txt");
+                    }
+                    if (File.Exists("rg_331_mid.txt") == false)
                     {
                         WebClient Client = new WebClient();
-                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_mid.txt", "pe_to_rg_331_mid.txt");
+                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_mid.txt", "rg_331_mid.txt");
                     }
-                    sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_mid.txt");
+                    rg_list = System.IO.File.ReadAllLines("rg_331_mid.txt");
                 }
-                if (File.Exists("rg_331_mid.txt") == false)
-                {
-                    WebClient Client = new WebClient();
-                    Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_mid.txt", "rg_331_mid.txt");
-                }
-                rg_list = System.IO.File.ReadAllLines("rg_331_mid.txt");
             }
             else if (assets_quality == "High")
             {
-                if (radioButton_edge.Checked == true)
+                if (comboBox_version.Text == "3.31")
                 {
-                    if (File.Exists("pe_to_rg_331_high.txt") == false)
+                    if (radioButton_edge.Checked == true)
+                    {
+                        if (File.Exists("pe_to_rg_331_high.txt") == false)
+                        {
+                            WebClient Client = new WebClient();
+                            Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_high.txt", "pe_to_rg_331_high.txt");
+                        }
+                        sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_high.txt");
+                    }
+                    if (File.Exists("rg_331_high.txt") == false)
                     {
                         WebClient Client = new WebClient();
-                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/pe_to_rg_331_high.txt", "pe_to_rg_331_high.txt");
+                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_high.txt", "rg_331_high.txt");
                     }
-                    sga_list = System.IO.File.ReadAllLines("pe_to_rg_331_high.txt");
+                    rg_list = System.IO.File.ReadAllLines("rg_331_high.txt");
                 }
-                if (File.Exists("rg_331_high.txt") == false)
+                else if (comboBox_version.Text == "3.26")
                 {
-                    WebClient Client = new WebClient();
-                    Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_331_high.txt", "rg_331_high.txt");
+                    if (File.Exists("rg_326_high.txt") == false)
+                    {
+                        WebClient Client = new WebClient();
+                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_326_high.txt", "rg_326_high.txt");
+                    }
+                    rg_list = System.IO.File.ReadAllLines("rg_326_high.txt");
                 }
-                rg_list = System.IO.File.ReadAllLines("rg_331_high.txt");
+                else if (comboBox_version.Text == "3.21")
+                {
+                    if (File.Exists("rg_321_high.txt") == false)
+                    {
+                        WebClient Client = new WebClient();
+                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_321_high.txt", "rg_321_high.txt");
+                    }
+                    rg_list = System.IO.File.ReadAllLines("rg_321_high.txt");
+                }
+                else if (comboBox_version.Text == "3.19")
+                {
+                    if (File.Exists("rg_319_high.txt") == false)
+                    {
+                        WebClient Client = new WebClient();
+                        Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/rg_319_high.txt", "rg_319_high.txt");
+                    }
+                    rg_list = System.IO.File.ReadAllLines("rg_319_high.txt");
+                }
             }
 
             if (radioButton_edge.Checked == true)
@@ -384,53 +428,26 @@ namespace SoDOff_navigator
 
         public void CreateDirs(string path)
         {
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\") == false)
+            string version = comboBox_version.Text + @".0\";
+            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\data\") == false)
             {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\");
+                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\data\");
             }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\DOJILZ\Dragons\SoD\") == false)
+            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\movies\") == false)
             {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\DOJILZ\Dragons\SoD\");
+                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\movies\");
             }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\DOJILZ\LoadScreens\en-US\") == false)
+            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\scene\") == false)
             {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\DOJILZ\LoadScreens\en-US\");
+                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\scene\");
             }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\DWAPromos\en-US\") == false)
+            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\shareddata\") == false)
             {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\DWAPromos\en-US\");
+                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\shareddata\");
             }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\CountryFlags\") == false)
+            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\sound\") == false)
             {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\CountryFlags\");
-            }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\Favs\") == false)
-            {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\Favs\");
-            }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\Gender\") == false)
-            {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\Gender\");
-            }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\Mood\") == false)
-            {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\data\Content\PlayerData\Mood\");
-            }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\movies\") == false)
-            {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\movies\");
-            }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\scene\") == false)
-            {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\scene\");
-            }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\shareddata\") == false)
-            {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\shareddata\");
-            }
-            if (Directory.Exists(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\sound\") == false)
-            {
-                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\3.31.0\" + assets_quality + @"\sound\");
+                Directory.CreateDirectory(path + @"\assets-cache\DWADragonsUnity\WIN\" + version + assets_quality + @"\sound\");
             }
         }
 
@@ -519,6 +536,25 @@ namespace SoDOff_navigator
                 labelSpeed.Visible = false;
                 //MessageBox.Show("Download completed!");
                 DownloadCompleted = true;
+            }
+        }
+
+        private void comboBox_version_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_version.Text == "3.31")
+            {
+                radioButton_edge.Enabled = true;
+                radioButton_low.Enabled = true;
+                radioButton_mid.Enabled = true;
+            }
+            else if (comboBox_version.Text != "3.31")
+            {
+                radioButton_edge.Enabled = false;
+                radioButton_low.Enabled = false;
+                radioButton_mid.Enabled = false;
+
+                radioButton_online.Checked = true;
+                radioButton_high.Checked = true;
             }
         }
     }
