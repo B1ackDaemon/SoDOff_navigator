@@ -156,12 +156,12 @@ namespace SoDOff_navigator
             if (platform == "windows")
             {
                 archive_name = @"\RG-offline-Windows.zip";
-                original_md5 = "f349571e107242a2fefdce2f7b58563c";
+                original_md5 = "f6e0809b11439e5c7bedeb83acb98c72";
             }
             else if (platform == "linux")
             {
                 archive_name = @"\RG-offline-Linux.zip";
-                original_md5 = "2ded4cd60e32717683a9af8830bb8400";
+                original_md5 = "fdd133cb63f6467414296c9baf39de25";
             }
             if (File.Exists(textBox_path.Text + archive_name) == true)
             {
