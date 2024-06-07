@@ -33,14 +33,14 @@ namespace SoDOff_navigator
                 Main.main.WriteLog = "[Mod Manager] downloading mods list from remote server..." + "\n";
 
                 WebClient Client = new WebClient();
-                Client.DownloadFile("https://raw.githubusercontent.com/B1ackDaemon/SoDOff_navigator_modslist/main/modslist.txt", "modslist.txt");
+                Client.DownloadFile("https://raw.githubusercontent.com/tobyw121/SoDOff_navigator_modslist/main/modslist.txt", "modslist.txt");
             }
             if (File.Exists("outdated.txt") == false)
             {
                 Main.main.WriteLog = "[Mod Manager] downloading outdated list from remote server..." + "\n";
 
                 WebClient Client = new WebClient();
-                Client.DownloadFile("https://github.com/B1ackDaemon/SoDOff_navigator_modslist/raw/main/outdated.txt", "outdated.txt");
+                Client.DownloadFile("https://github.com/tobyw121/SoDOff_navigator_modslist/raw/main/outdated.txt", "outdated.txt");
             }
 
             Main.main.WriteLog = "[Mod Manager] reading mods list..." + "\n";
